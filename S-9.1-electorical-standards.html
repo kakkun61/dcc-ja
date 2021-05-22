@@ -204,9 +204,140 @@
 <p>デジタルコマンドステーションからデジタルデコーダーへの通信は命令を伝達する一連のビットを転送することによって成り立っています。ビットは2つの状況のうちの1つをあらわす信号であり、それを <code>1</code> と <code>0</code> とします。この章では、これらのビットを符号化する DCC 信号の電気的特性について記述します。Please refer to tables 1-32 for definition and numerical values of parameters used throughout this document.</p>
 <h2 id="a：ビットを符号化する方式">A：ビットを符号化する方式</h2>
 <p>NMRA DCC 信号の基本は反対の極性をもつ連続した2つの電圧レベルの遷移です<sup><a href="#fn_1" id="reffn_1">1</a></sup>。交互に起こる遷移がビットを次のビットと分割します。残りの遷移がそれぞれの部分を前半と後半に分割します。デジタルコマンドステーションは、ビットの期間つまり遷移の周波数を変化させることによって DCC のこの連続した遷移にビットを符号化します。</p>
-<p> <code>1</code> ビットでは、ビットの前半と後半で名目上同じ期間となり、それを <code>t1</code><sup><a href="#fn_2" id="reffn_2">2</a></sup> とします。よってビット全体の期間は <code>2 × t1</code> です。デジタルコマンドステーションは、前半と後半のそれぞれが <code>t1</code> の期間をもつように <code>1</code> ビットを送信しなければいけません。 <code>1</code> ビットの前半と後半の期間の差は <code>t1d</code> を超えてはいけません。デジタルデコーダーは、前半と後半の期間の期間が <code>tr1</code> の範囲内なら <code>1</code> の値をもつ妥当なビットとして受け付けなければいけません。デジタルデコーダーは、正と負の部分の期間の差が <code>tr1d</code> を超えない場合、 <code>1</code> ビットとして受け付けなければいけません。</p>
-<p> <code>0</code> ビットでは、それぞれの遷移の前半と後半の期間は名目上 <code>t0</code> と等しいかそれより大きくないといけません。 <code>1</code> ビットと同じように信号全体における直流値を0にするため <code>0</code> ビットの前半と後半も一般的には等しい期間です。デジタルコマンドステーションは、ビットのそれぞれの部分が <code>t0</code> 以内の期間をもつように、また <code>0</code> ビットの全期間が <code>t0total</code> を超えないように <code>0</code> ビットを送信しなければなりません。デジタルデコーダーは、前半か後半が <code>tr0</code> 以内の期間をもつビットを <code>0</code> の値をもつ妥当なビットとして受け付けなければいけません。Figure 1 provides an example of bits encoded using this technique.</p>
+<p><code>1</code> ビットでは、ビットの前半と後半で名目上同じ期間となり、それを <code>t1</code><sup><a href="#fn_2" id="reffn_2">2</a></sup> とします。よってビット全体の期間は <code>2 × t1</code> です。デジタルコマンドステーションは、前半と後半のそれぞれが <code>t1</code> の期間をもつように <code>1</code> ビットを送信しなければいけません。 <code>1</code> ビットの前半と後半の期間の差は <code>t1d</code> を超えてはいけません。デジタルデコーダーは、前半と後半の期間の期間が <code>tr1</code> の範囲内なら <code>1</code> の値をもつ妥当なビットとして受け付けなければいけません。デジタルデコーダーは、正と負の部分の期間の差が <code>tr1d</code> を超えない場合、 <code>1</code> ビットとして受け付けなければいけません。</p>
+<p><code>0</code> ビットでは、それぞれの遷移の前半と後半の期間は名目上 <code>t0</code> と等しいかそれより大きくないといけません。 <code>1</code> ビットと同じように信号全体における直流値を0にするため <code>0</code> ビットの前半と後半も一般的には等しい期間です。デジタルコマンドステーションは、ビットのそれぞれの部分が <code>t0</code> 以内の期間をもつように、また <code>0</code> ビットの全期間が <code>t0total</code> を超えないように <code>0</code> ビットを送信しなければなりません。デジタルデコーダーは、前半か後半が <code>tr0</code> 以内の期間をもつビットを <code>0</code> の値をもつ妥当なビットとして受け付けなければいけません。Figure 1 provides an example of bits encoded using this technique.</p>
+<p><img src="http://via.placeholder.com/400x200" alt="画像 1：ビット符号化"></p>
 <p>これは接地のない差分信号です。信号線が水平基準線と交叉するという点において、両方の線路は等しい電圧となります。</p>
+<h3 id="1ビット計時">1ビット計時</h3>
+<p><img src="http://via.placeholder.com/300x200" alt></p>
+<p>負荷時のパワーステーションの出力は下記です。</p>
+<table>
+<thead>
+<tr>
+<th>1ビットの関係</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>期間A &lt; <code>t1min</code> または 期間A &gt; <code>t1max</code></td>
+<td>不可</td>
+</tr>
+<tr>
+<td>期間A =  期間 B</td>
+<td>可</td>
+</tr>
+<tr>
+<td>|期間A - 期間B| ≦ <code>t1dmax</code></td>
+<td>可</td>
+</tr>
+<tr>
+<td>|期間A - 期間B| &gt; <code>t1dmax</code></td>
+<td>不可</td>
+</tr>
+</tbody>
+</table>
+<p>デコーダーは下記を受け付けなければいけません。</p>
+<table>
+<thead>
+<tr>
+<th>1ビットの関係</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>期間A ≧ <code>tr1min</code> かつ 期間A ≦ <code>tr1max</code></td>
+<td>可</td>
+</tr>
+<tr>
+<td>期間A = 期間B</td>
+<td>可</td>
+</tr>
+<tr>
+<td>|期間A - 期間B| ≦ <code>tr1dmax</code></td>
+<td>可</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>変数</th>
+<th>定義</th>
+<th>最小値</th>
+<th>通常値</th>
+<th>最大値</th>
+<th>単位</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>t1</code></td>
+<td><code>1</code> の半ビット期間</td>
+<td>55</td>
+<td>58</td>
+<td>61</td>
+<td>μ秒</td>
+<td><code>1</code> の半ビットの転送継続時間</td>
+</tr>
+<tr>
+<td><code>tr1</code></td>
+<td><code>1</code> の半ビット受信期間</td>
+<td>52</td>
+<td>58</td>
+<td>64</td>
+<td>μ秒</td>
+<td>受信した <code>1</code> の半ビットの許容期間</td>
+</tr>
+<tr>
+<td><code>t0</code></td>
+<td><code>0</code> の半ビット期間</td>
+<td>95</td>
+<td>100</td>
+<td>9900</td>
+<td>μ秒</td>
+<td><code>0</code> の半ビットの転送継続時間</td>
+</tr>
+<tr>
+<td><code>t0total</code></td>
+<td><code>0</code> ビットの伸張期間</td>
+<td>—</td>
+<td>—</td>
+<td>12000</td>
+<td>μ秒</td>
+<td>引き伸ばされた <code>0</code> ビットの最大総和継続時間</td>
+</tr>
+<tr>
+<td><code>tr0</code></td>
+<td><code>0</code> の半ビットの受信期間</td>
+<td>90</td>
+<td>100</td>
+<td>10000</td>
+<td>μ秒</td>
+<td>受信した <code>0</code> の半ビットの許容期間</td>
+</tr>
+<tr>
+<td><code>t1d</code></td>
+<td><code>1</code> の半ビット期間の差分</td>
+<td>—</td>
+<td>—</td>
+<td>3</td>
+<td>μ秒</td>
+<td>転送した <code>1</code> の半ビットの期間の最大の差</td>
+</tr>
+<tr>
+<td><code>tr1d</code></td>
+<td>受信した <code>1</code> の半ビット期間の差分</td>
+<td>—</td>
+<td>—</td>
+<td>6</td>
+<td>μ秒</td>
+<td>受信した <code>1</code> の半ビットの期間の最大の差</td>
+</tr>
+</tbody>
+</table>
 <h2 id="b：コマンドコントロール信号の形">B：コマンドコントロール信号の形</h2>
 <p>デジタルコマンドコントロールシステムによって線路に適用された NMRA 信号は、パワーステーションの出力を無負荷から電力源の許容する最大連続負荷までの条件下で計測すると、下記の特性をもつ必要があります。Transitions that cross the region between <code>VtrL</code> and <code>VtrH</code><sup><a href="#fn_3" id="reffn_3">3</a></sup> shall occur at the rate of VtrA or faster. This signal may contain non-monotonic distortion at the zero-crossing transitions, provided that this distortion shall have an amplitude of no greater
 than +/- <code>Vdist</code><sup><a href="#fn_4" id="reffn_4">4</a></sup>.</p>
@@ -281,7 +412,7 @@ than +/- <code>Vdist</code><sup><a href="#fn_4" id="reffn_4">4</a></sup>.</p>
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"S-9.1 DCC 電気的標準","level":"2.1","depth":1,"next":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]}]},"previous":{"title":"はじめに","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.1-electorical-standards.md","mtime":"2021-05-22T16:31:09.587Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-22T16:31:26.097Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.1 DCC 電気的標準","level":"2.1","depth":1,"next":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]}]},"previous":{"title":"はじめに","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.1-electorical-standards.md","mtime":"2021-05-22T18:03:18.492Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-22T18:03:25.721Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
