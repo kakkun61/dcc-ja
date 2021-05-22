@@ -199,9 +199,9 @@
                                 <h1 id="s-921-デジタルコマンドコントロールの拡張パケット形式">S-9.2.1 デジタルコマンドコントロールの拡張パケット形式</h1>
 <p><a href="https://www.nmra.org/sites/default/files/s-9.2.1_2012_07.pdf" target="_blank">原文</a></p>
 <p>原文版：July 2012</p>
-<p>The NMRA Communications Standard for Digital Communications (S-9.2) provides a minimal, basic packet format required for interoperability. This STANDARD provides Extended Packet Formats that provide the framework to enable realistic operations to occur. These formats adhere to the general packet format as defined in S-9.2. While the baseline packet has a length of 3 data bytes separated by a &quot;0&quot; bit, a packet using the extended packet format definition may have a length of between 3 and 6 data bytes each separated by a &quot;0&quot; bit.</p>
+<p>NMRA の「デジタルコマンドコントロールの通信標準（S-9.2）」は相互運用性のための最低限で基本的なパケット形式を提供しています。この標準は、発生する現実的な運用を可能にする枠組みを提供する拡張パケット形式を提供します。この形式は S-9.2 で定義される一般パケット形式にしたがいます。基準パケットは <code>0</code> ビットで分割された3バイトでしたが、拡張パケット形式では <code>0</code> ビットで分割された3から6バイトをもちえます。</p>
 <h3 id="形式定義">形式定義</h3>
-<p>Within this Standard, bits within the address and data bytes will be defined using the following abbreviations. Individual bytes within a specific packet format are separated by spaces. Bytes which are within square [] brackets can occur one or more times as necessary. Bits are numbered from right to left with bit 0 (the right most bit) being the least significant bit (LSB) and bit 7 (the left most bit) being the most significant bit (MSB).</p>
+<p>この標準では、アドレスとデータバイト内のビットは次に示す省略によって定義されます。パケット形式のそれぞれのバイトは空白によって分割されます。角括弧（<code>[</code>・<code>]</code>）によって囲われたバイトは必要に応じて1回以上出現します。ビットは右から左の順に番号が付けられます。ビット0（最右ビット）は最下位ビット（LSB）、ビット7（最左ビット）は最上位ビット（MSB）となります。</p>
 <table>
 <thead>
 <tr>
@@ -269,7 +269,7 @@
 </tbody>
 </table>
 <h2 id="a：アドレス分割">A：アドレス分割</h2>
-<p>The first data byte of an Extended Packet Format packet contains the primary address. In order to allow for different types of decoders this primary address is subdivided into fixed partitions as follows.</p>
+<p>拡張パケット形式のパケットの最初のバイトは主アドレスをもちます。ことなった種類のデコーダーのために、主アドレスは下記のように固定区分に分割されます。</p>
 <table>
 <thead>
 <tr>
@@ -307,15 +307,14 @@
 <h2 id="b：多機能デジタルデコーダー用ブロードキャストコマンド">B：多機能デジタルデコーダー用ブロードキャストコマンド</h2>
 <p>このパケットの形式は下記です。</p>
 <pre><code>前文 0 00000000 0 命令バイト 0 EEEEEEEE 1
-</code></pre><p>「ブロードキャストアドレス」<code>00000000</code> 向けの命令はすべての多機能デジタルデコーダーによって実行されなければいけません。 The single instruction has the same definition as defined by the Multi Function Digital Decoder packet and can be one, two, or three bytes in length depending on the instruction. Digital Decoders should ignore any instruction they do not support. The manufacturer must document which broadcast commands a decoder supports.</p>
+</code></pre><p>「ブロードキャストアドレス」<code>00000000</code> 向けの命令はすべての多機能デジタルデコーダーによって実行されなければいけません。単一の命令は「多機能デジタルデコーダーパケット」で定義されるものと同じ定義をもち、命令によって1から3バイトになります。デジタルデコーダーは自身が解釈できない命令は無視しなければいけません。製造者はデコーダーが解釈できるブロードキャストコマンドを記載しなければいけません。</p>
 <h2 id="c：多機能デジタルデコーダー用命令パケット">C：多機能デジタルデコーダー用命令パケット</h2>
 <p>このパケットの形式は下記です。</p>
 <pre><code>前文 0 [ AAAAAAAA ] 0 命令バイト 0 EEEEEEEE 1
-</code></pre><p>Multi Function Digital Decoders are used for the purpose of controlling one or more motors and/or accessories.
-65 The packet format used to control these devices consists of between 3 and 6 bytes where the first bytes are address bytes followed by one or two instruction bytes and ended by an error control byte.</p>
-<p>The first address byte contains 8 bits of address information. If the most significant bits of the address are &quot;11&quot; and the remaining bits are not “111111”, then a second address byte must immediately follow. This second address byte will then contain an additional 8 bits of address data. When 2 bytes of address information are present they are separated by a &quot;0&quot; bit. The most significant bit of two byte addresses is bit 5 of the first address byte. (bits #6 and #7 having the value of &quot;1&quot; in this case.</p>
-<p>Instruction-bytes are data bytes used to send commands to Multi Function Digital Decoders. Although it is unlikely that all Digital Decoders will implement all instructions, it is important that if they support packets with more than a single instruction, they can sufficiently parse the packet to be able to recognize if a byte is a new instruction or the second byte of a previous instruction.</p>
-<p>Each instruction (indicated by {instruction-bytes}) is defined to be:</p>
+</code></pre><p>多機能デジタルデコーダーは1つ以上のモーターやアクセサリーを操作する目的で使用されます。これらの機器を操作するために使われるパケット形式は3から6バイトで構成されます。最初のバイトはアドレスバイトで、それに続き1つか2つの命令バイトが、最後はエラー制御バイトで終わります。</p>
+<p>最初のアドレスバイトは、8ビットのアドレス情報をもちます。もしアドレスの最上位の2ビットが <code>11</code> で残りが <code>111111</code> でない場合、2番目のアドレスバイトがそのすぐ後に続かなければいけません。この2番目のアドレスバイトは8ビットの追加のアドレス情報をもちます。 アドレス情報が2バイトあるとき、それらは <code>0</code> ビットで分割されます。2バイトアドレスの最上位ビットは最初のアドレスバイトのビット5です（この場合ビット6とビット7は <code>1</code> の値をもちます）。</p>
+<p>命令バイトは多機能デジタルデコーダーにコマンドを送信するために使われるデータバイトです。すべてのデジタルデコーダーがすべての命令を実装していませんが、もし1つ以上の命令を解釈できる場合、バイトが新規の命令なのか前の命令の2番目のバイトなのかを認識できるようにデジタルデコーダーがパケットを十分に解析できることは重要です</p>
+<p>それぞれの命令は下記のように定義されます。</p>
 <pre><code>命令バイト = CCCDDDDD または
              CCCDDDDD 0 DDDDDDDD または
              CCCDDDDD 0 DDDDDDDD 0 DDDDDDDD
@@ -486,6 +485,38 @@
 </table>
 <p>Note: This command is valid at both the decoder’s base address and (if active) the consist address. If sent to the base address, the command affects both the base address and the active consist address (if any). If sent to the consist address, and D=0 this command has no effect on the base address. If sent to the consist address, and D=1 this command has no effect.</p>
 <h4 id="構成制御（0001）">構成制御（<code>0001</code>）</h4>
+<p>This instruction controls consist setup and activation or deactivation.</p>
+<p>When Consist Control is in effect, the decoder will ignore any speed or direction instructions addressed to its normal locomotive address (unless this address is the same as its consist address). Speed and direction instructions now apply to the consist address only.</p>
+<p>Functions controlled by instruction 100 and 101 will continue to respond to the decoders baseline address. Functions controlled by instructions 100 and 101 also respond to the consist address if the appropriate bits in CVs #21, 22 have been activated.</p>
+<p>By default all forms of Bi-directional communication are not activated in response to commands sent to the consist address until specifically activated by a Decoder Control instruction. Operations mode acknowledgement and Data Transmission applies to the appropriate commands at the respective decoder addresses.</p>
+<p>The format of this instruction is:</p>
+<pre><code>命令バイト = 0001CCCC 0 0AAAAAAA
+</code></pre><p>A value of “1” in bit 7 of the second byte is reserved for future use. Within this instruction CCCC contains a consist setup instruction, and the AAAAAAA in the second byte is a seven bit consist address. If the address is &quot;0000000&quot; then the consist is deactivated. If the address is non-zero, then the consist is activated.</p>
+<p> If the consist is deactivated (by setting the consist to ‘0000000’), the Bi-Directional communications settings are set as specified in CVs 26-28.</p>
+<p>When operations-mode acknowledgement is enabled, all consist commands must be acknowledged via operations-mode acknowledgement.</p>
+<p>The format for CCCC shall be:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center"><code>CCCC</code></th>
+<th>説明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><code>0010</code></td>
+<td>Set the consist address as specified in the second byte, and activate the consist. The consist address is stored in bits 0-6 of CV #19 and bit 7 of CV #19 is set to a value of 0. The direction of this unit in the consist is the normal direction. If the consist address is 0000000 the consist is deactivated.</td>
+</tr>
+<tr>
+<td style="text-align:center"><code>0011</code></td>
+<td>Set the consist address as specified in the second byte and activate the consist. The consist address is stored in bits 0-6 of CV #19 and bit 7 of CV#19 is set to a value of 1. The direction of this unit in the consist is opposite its normal direction. If the consist address is 0000000 the consist is deactivated.</td>
+</tr>
+<tr>
+<td style="text-align:center">その他</td>
+<td>将来の使用のために予約</td>
+</tr>
+</tbody>
+</table>
 <h3 id="発展的制御命令（001）">発展的制御命令（<code>001</code>）</h3>
 <h3 id="速度命令と方向命令（010・011）">速度命令と方向命令（010・011）</h3>
 <h3 id="機能群1命令（100）4">機能群1命令（<code>100</code>）<sup><a href="#fn_4" id="reffn_4">4</a></sup></h3>
@@ -555,7 +586,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2021-05-20T08:40:54.830Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-20T09:18:39.735Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2021-05-22T03:25:51.417Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-22T03:26:06.326Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
