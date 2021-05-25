@@ -329,35 +329,35 @@
 <tbody>
 <tr>
 <td style="text-align:center"><code>000</code></td>
-<td>Decoder and Consist Control Instruction</td>
+<td>デコーダー制御と構成制御命令</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>001</code></td>
-<td>Advanced Operation Instructions</td>
+<td>発展運転命令</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>010</code></td>
-<td>Speed and Direction Instruction for reverse operation</td>
+<td>後方運転の速度と方向命令</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>011</code></td>
-<td>Speed and Direction Instruction for forward operation</td>
+<td>前方運転の速度と方向命令</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>100</code></td>
-<td>Function Group One Instruction</td>
+<td>機能群1命令</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>101</code></td>
-<td>Function Group Two Instruction</td>
+<td>機能群2命令</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>110</code></td>
-<td>Future Expansion</td>
+<td>将来的拡張</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>111</code></td>
-<td>Configuration Variable Access Instruction</td>
+<td>CV 読み書き命令</td>
 </tr>
 </tbody>
 </table>
@@ -380,11 +380,11 @@
 <tbody>
 <tr>
 <td style="text-align:center"><code>0000</code></td>
-<td>Digital Decoder Reset - A Digital Decoder Reset shall erase all volatile memory 115 (including and speed and direction data), and return to its initial power up state as defined in S9.2.4 section A. Command Stations shall not send packets to addresses 112-127 for 10 packet times following a Digital Decoder Reset. This is to ensure that the decoder does not start executing service mode instruction packets as operations mode packets (Service Mode instruction packets have a short address in the range of 112 to 127 decimal.)</td>
+<td>デジタルデコーダーリセット - A Digital Decoder Reset shall erase all volatile memory 115 (including and speed and direction data), and return to its initial power up state as defined in S9.2.4 section A. Command Stations shall not send packets to addresses 112-127 for 10 packet times following a Digital Decoder Reset. This is to ensure that the decoder does not start executing service mode instruction packets as operations mode packets (Service Mode instruction packets have a short address in the range of 112 to 127 decimal.)</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>0001</code></td>
-<td>Hard Reset - Configuration Variables 29, 31 and 32 are reset to its factory default conditions, CV#19 is set to &quot;00000000&quot; and a Digital Decoder reset (as in the above instruction) shall be performed.</td>
+<td>強制リセット - Configuration Variables 29, 31 and 32 are reset to its factory default conditions, CV#19 is set to &quot;00000000&quot; and a Digital Decoder reset (as in the above instruction) shall be performed.</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>1111</code></td>
@@ -402,7 +402,7 @@
 <tbody>
 <tr>
 <td style="text-align:center"><code>001</code></td>
-<td>Factory Test Instruction - This instruction is used by manufacturers to test decoders at the factory. It must not be sent by any command station during normal operation. This instruction may be a multi-byte instruction.</td>
+<td>工場試験命令 - This instruction is used by manufacturers to test decoders at the factory. It must not be sent by any command station during normal operation. This instruction may be a multi-byte instruction.</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>010</code></td>
@@ -410,7 +410,7 @@
 </tr>
 <tr>
 <td style="text-align:center"><code>011</code></td>
-<td>Set Decoder Flags (see below)</td>
+<td>デコーダーフラグの設定（下記参照）</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>100</code></td>
@@ -418,7 +418,7 @@
 </tr>
 <tr>
 <td style="text-align:center"><code>101</code></td>
-<td>Set Advanced Addressing (CV#29 bit 5)</td>
+<td>発展アドレスの設定 (CV#29 bit 5)</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>110</code></td>
@@ -586,7 +586,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2021-05-22T18:07:44.775Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-22T18:07:51.975Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":[],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2021-05-25T01:08:06.224Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-25T01:08:20.972Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
