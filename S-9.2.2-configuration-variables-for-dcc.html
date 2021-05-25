@@ -3,7 +3,7 @@
 <html lang="ja" >
     <head>
         <meta charset="UTF-8">
-        <title> · NMRA 標準と推奨慣例</title>
+        <title>S-9.2.2 デジタルコマンドコントロールの設定値（CV） · NMRA 標準と推奨慣例</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="HonKit 3.6.20">
@@ -60,6 +60,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    
+    <link rel="prev" href="S-9.2.1-extended-packet-formats.html" />
     
 
     </head>
@@ -148,7 +150,7 @@
             
         </li>
     
-        <li class="chapter " data-level="2.2.2" data-path="S-9.2.2-configuration-variables-for-dcc.html">
+        <li class="chapter active" data-level="2.2.2" data-path="S-9.2.2-configuration-variables-for-dcc.html">
             
                 <a href="S-9.2.2-configuration-variables-for-dcc.html">
             
@@ -196,7 +198,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." ></a>
+        <a href="." >S-9.2.2 デジタルコマンドコントロールの設定値（CV）</a>
     </h1>
 </div>
 
@@ -211,16 +213,52 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="標準">標準</h2>
-<p>Standard; S</p>
-<h2 id="推奨慣例">推奨慣例</h2>
-<p>Recommended Practice; RP</p>
-<h2 id="技術的注釈">技術的注釈</h2>
-<p>Technical Note; TN</p>
-<h2 id="技術的情報">技術的情報</h2>
-<p>Technical Information; TI</p>
-<h2 id="技術的参考文献">技術的参考文献</h2>
-<p>Technical References; TR</p>
+                                <h1 id="s-922-デジタルコマンドコントロールの設定値（cv）">S-9.2.2 デジタルコマンドコントロールの設定値（CV）</h1>
+<p><a href="https://www.nmra.org/sites/default/files/standards/sandrp/pdf/s-9.2.2_decoder_cvs_2012.07.pdf" target="_blank">原文</a></p>
+<p>原文版：July 2012</p>
+<p>この標準はデジタルデコーダー CV の対応と記述を提供します。CV はそれぞれの機関車や他の可搬・不可搬の機器のためにデコーダーをカスタマイズできるようにします。CV は不揮発性記憶に保存され、長期間デコーダーの電源が切れていても変更されてはいけません。</p>
+<h2 id="一般的定義">一般的定義</h2>
+<p>Tables 1 and 2 identify each of the Configuration Variables (CVs), along with additional information about each one. Following Table 1 is a written description of each of the CVs. In Tables 1 and 2 each Configuration Variable (CV) is identified by name and number, along with the following information:</p>
+<ul>
+<li>Required: Mandatory (M), Recommended (R) or Optional (O). CVs identified as Mandatory (M) must be implemented in order to conform to this Standard, while those marked as Recommended (R) are strongly encouraged but not mandatory, and those marked Optional (O) are at the manufacturer’s discretion.</li>
+<li>Default Value: the required factory default value when the CV is provided in an implementation.</li>
+<li>Read-Only: indicates a CV whose value should be set by the manufacturer and which the user cannot modify.</li>
+<li>Uniform Spec: Many CVs are implementation specific and no uniform specification is required. Others must be implemented in a uniform fashion in order to achieve compatibility. A &quot;Y&quot; in the Uniform Spec column indicates a CV which requires implementation by manufacturers according to a common specification. A blank in the Uniform Specification means that the CV must be used for its designated purpose, but the action taken by the decoder for a specific value can vary from manufacturer to manufacturer.</li>
+<li>Dynamic: CVs in this range are dynamic and are used for Unsolicited Decoder Initiated Transmission. Manufacturers who utilize these CVs are requested to contact the NMRA DCC WG for current uniform specifications.</li>
+</ul>
+<p>Note. While all Digital Decoders need not implement all variables, it is required that if a function is provided, that the all of the relevant CV information be adhered to.</p>
+<ul>
+<li>Additional Comments: CVs identified as &quot;Reserved by NMRA for future use&quot; are allocated for future needs and must not be used by an implementer without prior written approval from the NMRA Technical Department. CVs identified as &quot;Values assigned by NMRA&quot; indicate that the allowable values are defined by the NMRA and any requests for additional values should be directed to the NMRA Technical Department. CVs identified as &quot;Reserved for manufacturer use&quot; are allocated for use by implementers, for which no prior NMRA authorization is needed, and for which no common usage across decoders from different implementers can be assured by the NMRA.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>CV 名</th>
+<th style="text-align:center">CV 番号</th>
+<th style="text-align:center">必須</th>
+<th style="text-align:center">デフォルト値</th>
+<th style="text-align:center">読み込みのみ</th>
+<th style="text-align:center">Uniform Spec</th>
+<th>動的（揮発性）</th>
+<th>備考</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>主アドレス</td>
+<td style="text-align:center">1</td>
+<td style="text-align:center">M</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">Y</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<blockquote id="fn_1">
+<sup>1</sup>. If any of these features are provided, then this CV is Mandatory<a href="#reffn_1" title="Jump back to footnote [1] in the text."> ↩</a>
+</blockquote>
 
                                 
                                 </section>
@@ -248,6 +286,10 @@
 
             
                 
+                <a href="S-9.2.1-extended-packet-formats.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: S-9.2.1 DCC 拡張パケット形式">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
                 
             
         
@@ -256,7 +298,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"dir":"ltr"},"config":{"plugins":["add-js-css"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"GLOSSARY.md","mtime":"2021-05-25T16:41:42.042Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-25T16:41:50.793Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.2.2 デジタルコマンドコントロールの設定値（CV）","level":"2.2.2","depth":2,"previous":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},"dir":"ltr"},"config":{"plugins":["add-js-css"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.2-configuration-variables-for-dcc.md","mtime":"2021-05-25T16:41:42.042Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-05-25T16:41:50.793Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
