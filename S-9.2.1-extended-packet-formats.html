@@ -623,20 +623,19 @@
 <h4 id="2値状態制御命令（短形式）">2値状態制御命令（短形式）</h4>
 <p>副命令 <code>11101</code> は2バイト命令で、デコーダーの127個の2値状態の1つを制御するために提供されます。この命令バイトに続く単一バイトは <code>DLLLLLLL</code> の形式をもちます。2番目のバイトのビット0～6（<code>LLLLLLL</code>）は1で始まり127で終わる2値状態の数を定義しなければいけません。ビット7（<code>D</code>）は2値状態を定義します。<code>1</code> の値はその2値状態がオンであることを示し、<code>0</code> の値はその2値状態がオフであることを示さなければいけません。<code>LLLLLLL</code> の <code>0</code> の値は2値状態制御の短形式で読み書きする127個の2値状態の<u>すべて</u>を消去・セットをブロードキャストするために予約されています。命令 <code>11011101 0 00000000</code> はこの命令でアクセスされるすべての127個の2値状態をオフにセットします。</p>
 <p>受信したパケットに直接応答してデコーダーのデジタル特性の出力やサウンド・他の特徴を制御しうるという点で、2値状態制御は機能によく似ています。しかし、2値状態制御はことなった読み書き方法と機能空間をもちます。なので、別の名前をもちます。</p>
-<p>2値状態制御パケットは短形式も長形式もリフレッシュされません。なので機能状況の非揮発記憶装置が提案されます。</p>
-<p>運転モード応答が有効であるとき、2値状態制御パケットは運転モード応答によって応答されなければいけません。この命令の追加情報は技術的注釈を参考にしてください（TN-4.05）。</p>
+<p>2値状態制御パケットは短形式も長形式もリフレッシュされません。なので機能状況の非揮発記憶装置が提案されます。運転モード応答が有効であるとき、2値状態制御パケットは運転モード応答によって応答されなければいけません。この命令の追加情報は技術的注釈を参考にしてください（TN-4.05）。</p>
 <h4 id="f13～f20-機能制御">F13～F20 機能制御</h4>
 <p>副命令 <code>11110</code> は2バイト命令で、8つの追加の補助的な機能 F13～F20 を制御するために提供されます。この命令バイトに続く単一バイトは与えられた機能がオンにされるかオフにされるかをしめします。最下位ビット（ビット0）は F13 を制御し、最上位ビット（ビット7）は F20 を制御します。与えられた機能の <code>D</code> の <code>1</code> の値はその機能がオンであることをしめし、与えられた機能の <code>D</code> の <code>0</code> の値は与えられた機能がオフであることをしめさなければいけません。これらの機能の状況が NVRAM のようなデコーダー記憶装置に保存されることは推奨されますが、必須ではありません。これらの機能の状態がコマンドステーションにつねにリフレッシュされることは必須ではなく、想定すべきではありません。これらのパケットを生成するコマンドステーションは、機能の状態が変わるときはこれらのコマンドを少なくとも2回くりかえして送信しなければいけません。運転モード応答が有効であるとき、F13～F20 機能制御パケットは運転モード応答によって応答されなければいけません。この命令の追加情報は技術的注釈を参考にしてください（TN-4.05）。</p>
 <h4 id="f21～f28-機能制御">F21～F28 機能制御</h4>
-<p>Sub-instruction “11111” is a two byte instruction and provides for control of eight (8) additional auxiliary functions F21-F28. The single byte following this instruction byte indicates whether a given function is turned on or off, with the least significant bit (Bit 0) controlling F21, and the most significant bit (bit 7) controlling F28. A value of “1” in D for a given function shall indicate the function is “on” while a value of “0” in D for a given function shall indicate a given function is “off”. It is recommended, but not required that the status of these functions be saved in decoder storage such as NVRAM. It is not required, and should not be assumed that the state of these functions is constantly refreshed by the command station. Command Stations that generate these packets, and which are not periodically refreshing these functions, must send at least two repetitions of these commands when any function state is changed. When operations mode acknowledgment is enabled, receipt of an F21-F28 Function Control packet shall be acknowledged accordingly with an operations mode acknowledgement. Consult the Technical Note(s), TN-4-05, for additional information on this instruction. The remaining 28 sub-instructions are reserved by the NMRA for future use.<sup><a href="#fn_6" id="reffn_6">6</a></sup></p>
+<p>副命令 <code>11110</code> は2バイト命令で、8つの追加の補助的な機能 F21～F28 を制御するために提供されます。この命令バイトに続く単一バイトは与えられた機能がオンにされるかオフにされるかをしめします。最下位ビット（ビット0）は F21 を制御し、最上位ビット（ビット7）は F28 を制御します。与えられた機能の <code>D</code> の <code>1</code> の値はその機能がオンであることをしめし、与えられた機能の <code>D</code> の <code>0</code> の値は与えられた機能がオフであることをしめさなければいけません。これらの機能の状況が NVRAM のようなデコーダー記憶装置に保存されることは推奨されますが、必須ではありません。これらの機能の状態がコマンドステーションにつねにリフレッシュされることは必須ではなく、想定すべきではありません。これらのパケットを生成するコマンドステーションは、機能の状態が変わるときはこれらのコマンドを少なくとも2回くりかえして送信しなければいけません。運転モード応答が有効であるとき、2F3～F28 機能制御パケットは運転モード応答によって応答されなければいけません。この命令の追加情報は技術的注釈を参考にしてください（TN-4.05）。残りの28の副命令は NMRA によって将来の使用のために予約されています<sup><a href="#fn_6" id="reffn_6">6</a></sup>。</p>
 <h3 id="cv-読み書き命令（111）">CV 読み書き命令（<code>111</code>）</h3>
-<p>The Configuration Variable Access instructions are intended to set up or modify Configurations Variables either on the programming track or on the main line. There are two forms of this instruction. The short form is for modifying selected frequently modified Configuration Variables. The long form is for verifying or modifying any selected Configuration Variable. Only a single configuration variable access instruction may be contained in a packet.</p>
+<p>CV 読み書き命令は、プログラム線路もしくは主線路で CV をセットしたり書き換えたりすることを意図されています。この命令には2通りの形式があります。短形式は選択された高頻度に書き換える CV を書き換えるためにあります。長形式は選択された CV を検証したり書き換えたりするためにあります。単一の CV 読み書き命令のみが1つのパケットに含まれえます。</p>
 <h4 id="cv-読み書き応答">CV 読み書き応答</h4>
-<p>If a configuration variable access acknowledgment is required, and the decoder has decoder operations-mode acknowledgment enabled, the decoder shall respond with an operations mode acknowledgment.</p>
+<p>CV 読み書き応答が要求され、運転モード応答が有効であるとき、デコーダーは運転モード応答によって応答しなければいけません。</p>
 <h4 id="cv-読み書き手順（短式）">CV 読み書き手順（短式）</h4>
 <p>この命令は下記の形式です。</p>
 <pre><code>1111CCCC 0 DDDDDDDD
-</code></pre><p>The 8 bit data DDDDDDDD is placed in the configuration variable identified by CCCC according to the following table</p>
+</code></pre><p>8ビットデータ <code>DDDDDDDD</code> は下記の表にしたがって <code>CCCCC</code> で識別される CV に配置されます。</p>
 <table>
 <thead>
 <tr>
@@ -734,14 +733,14 @@
 <p>The Extended Accessory Decoder Control Packet is included for the purpose of transmitting aspect control to signal decoders or data bytes to more complex accessory decoders. Each signal head can display one aspect at a time.</p>
 <pre><code>前文 0 10AAAAAA 0 0AAA0AA1 0 000XXXXX 0 EEEEEEEE 1
 </code></pre><p>XXXXX is for a single head. A value of 00000 for XXXXX indicates the absolute stop aspect. All other aspects represented by the values for XXXXX are determined by the signaling system used and the prototype being modeled.</p>
-<p>If operations-mode acknowledgement is enabled, receipt of an extended accessory decoder packet must be acknowledged with an operations-mode acknowledgement.</p>
+<p>運転モード応答が有効であるとき、拡張アクセサリーデコーダーパケットは運転モード応答によって応答されなければいけません。</p>
 <h3 id="アクセサリーデコーダー用ブロードキャストコマンド">アクセサリーデコーダー用ブロードキャストコマンド</h3>
 <h4 id="基本アクセサリーデコーダー用ブロードキャストコマンド">基本アクセサリーデコーダー用ブロードキャストコマンド</h4>
-<p>The format for the broadcast instruction is:</p>
+<p>ブロードキャスト命令の形式は下記です。</p>
 <pre><code>前文 0 10111111 0 1000CDDD 0 EEEEEEEE 1
 </code></pre><p>This packet shall be executed by all accessory decoders. CDDD is defined as specified in the paragraph on Basic Accessory Decoder Packet Format.</p>
 <h4 id="拡張アクセサリーデコーダー用ブロードキャストコマンド">拡張アクセサリーデコーダー用ブロードキャストコマンド</h4>
-<p>The format for the broadcast instruction is:</p>
+<p>ブロードキャスト命令の形式は下記です。</p>
 <pre><code>前文 0 10111111 0 00000111 0 000XXXXX 0 EEEEEEEE 1
 </code></pre><p>All extended accessory decoders must execute this packet. XXXXX is defined as specified in the paragraph on Extended Accessory Decoder Packet Format.</p>
 <h3 id="アクセサリーデコーダー-cv-読み書き手順">アクセサリーデコーダー CV 読み書き手順</h3>
@@ -750,14 +749,12 @@
 <pre><code>10AAAAAA 0 1AAACDDD
 </code></pre><p>Where DDD is used to indicate the output whose CVs are being modified and C=1. If CDDD= 0000 then the CVs refer to the entire decoder. The resulting packet would be</p>
 <pre><code>前文 10AAAAAA 0 1AAACDDD 0 (1110CCVV 0 VVVVVVVV 0 DDDDDDDD) 0 EEEEEEEE 1
-       Accessory Decoder Address (Configuration Variable Access Instruction)
-                                                              Error Byte
+     アクセサリーデコーダーアドレス（CV 読み書き命令）        エラーバイト
 </code></pre><p>運転モードプログラミングのための拡張デコーダー制御パケットアドレス</p>
 <pre><code>10AAAAAA 0 0AAA0AA1
 </code></pre><p>Please note that the use of 0 in bit 3 of byte 2 is to ensure that this packet cannot be confused with the legacy accessory-programming packets. The resulting packet would be:</p>
 <pre><code>前文 10AAAAAA 0 0AAA0AA1 0 (1110CCVV 0 VVVVVVVV 0 DDDDDDDD) 0 EEEEEEEE 1
-       Signal Decoder Address (Configuration Variable Access Instruction)
-                                                              Error Byte
+     信号デコーダーアドレス（CV 読み書き命令）                エラーバイト
 </code></pre><h2 id="e：制御モード応答">E：制御モード応答</h2>
 <p>The operations-mode acknowledgment mechanism as defined in S-9.3.1 and S-9.3.2 are the only valid acknowledgement in operations mode. Whenever an acknowledgment is requested, the decoder shall respond using this mechanism described in S-9.3.1 and S-9.3.2.</p>
 <h2 id="付録-a">付録 A</h2>
@@ -839,7 +836,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 DCC の設定値（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 DCC の設定値（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2021-06-02T15:57:32.479Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-06-02T15:57:39.501Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 DCC の設定値（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 DCC の設定値（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2021-06-02T17:46:34.441Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-06-02T17:46:43.810Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
