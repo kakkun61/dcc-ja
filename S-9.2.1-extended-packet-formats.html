@@ -695,12 +695,12 @@
 </tr>
 </tbody>
 </table>
-<p>The remaining values of CCCC are reserved and will be selected by the NMRA as need is determined.</p>
-<p>Only a single packet is necessary to change a configuration variable using this instruction. If the decoder successfully receives this packet, it shall respond with an operations mode acknowledgment.</p>
+<p><code>CCCC</code> の残りの値は予約されており、必要に応じて NMRA によって選択されることに決まっています。</p>
+<p>この命令を使って CV を変更するために単一のパケットのみ必要です。デコーダーがこのパケットを受信した場合、運転モード応答で応答しなければいけません。</p>
 <h4 id="cv-読み書き手順（長式）">CV 読み書き手順（長式）</h4>
-<p>The long form allows the direct manipulation of all CVs<sup><a href="#fn_7" id="reffn_7">7</a></sup>. This instruction is valid both when the Digital Decoder has its long address active and short address active. Digital Decoders shall not act on this instruction if sent to its consist address. The format of the instructions using Direct CV addressing is:</p>
+<p>長式はすべての CV を直接操作することを許します<sup><a href="#fn_7" id="reffn_7">7</a></sup>。この命令は、デジタルデコーダーで長いアドレスが有効なときと短いアドレスが有効なときの両方で妥当です。編成アドレスに送信されたとき、デジタルデコーダーはこの命令で動作してはいけません。直接 CV 読み書きに使用される命令の形式は下記です。</p>
 <pre><code>1110CCVV 0 VVVVVVVV 0 DDDDDDDD
-</code></pre><p>The actual Configuration Variable desired is selected via the 10-bit address with the 2-bit address (VV) in the first data byte being the most significant bits of the address. The Configuration variable being addressed is the provided 10-bit address plus 1. For example, to address CV#1 the 10 bit address is “00 00000000”.</p>
+</code></pre><p>要求される実際の CV は10ビットアドレスと最初のデータバイトの2ビットアドレス（アドレスの最上位ビット <code>VV</code>）で選択されます。読み書きされる CV は提供された10ビットアドレス足す1です。例えば、CV 1 を読み書きするには10ビットアドレスは <code>00 00000000</code> です。</p>
 <p>定義された命令の種類（<code>CC</code>）は下記です。</p>
 <table>
 <thead>
@@ -729,11 +729,11 @@
 </tbody>
 </table>
 <h5 id="検証バイト">検証バイト</h5>
-<p>The contents of the Configuration Variable as indicated by the 10-bit address are compared with the data byte (DDDDDDDD). If the decoder successfully receives this packet and the values are identical, the Digital Decoder shall respond with the contents of the CV as the Decoder Response Transmission, if enabled.</p>
+<p>10ビットアドレスで示される CV の内容はデータバイト（<code>DDDDDDDD</code>）と比較されます。デコーダーがこのパケットの受信に成功し、その値が同一であり、かつデコーダー返答転送が有効な場合、デジタルデコーダーはデコーダー返答転送として CV の内容を返答しなければいけません。</p>
 <h5 id="書き込みバイト">書き込みバイト</h5>
-<p>The contents of the Configuration Variable as indicated by the 10-bit address are replaced by the data byte (DDDDDDDD). Two identical packets are needed before the decoder shall modify a configuration variable<sup><a href="#fn_8" id="reffn_8">8</a></sup>. These two packets need not be back to back on the track. However any other packet to the same decoder will invalidate the write operation. (This includes broadcast packets.) If the decoder successfully receives this second identical packet, it shall respond with a configuration variable access acknowledgment</p>
+<p>10ビットアドレスで示される CV の内容はデータバイト（<code>DDDDDDDD</code>）と置換されます。デコーダーが CV を変更する前に2つの同一のパケットが必要です<sup><a href="#fn_8" id="reffn_8">8</a></sup>。これらの2つのパケットは線路で背中合わせになっている必要はありません。しかし、同じデコーダーへの別のパケットは書き込み操作を無効化します（これにはブロードキャストパケットも含まれます）。デコーダーが2番目の同一パケットの受信に成功した場合、デコーダーは CV 読み書き応答で返答しなければいけません。</p>
 <h5 id="ビット演算">ビット演算</h5>
-<p>The bit manipulation instructions use a special format for the data byte (DDDDDDDD):</p>
+<p>ビット操作命令はデータバイト（<code>DDDDDDDD</code>）に特別な形式を使用します。</p>
 <pre><code>111CDBBB
 </code></pre><p>Where BBB represents the bit position within the CV, D contains the value of the bit to be verified or written, and C describes whether the operation is a verify bit or a write bit operation.</p>
 <table>
@@ -869,7 +869,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 DCC の設定値（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 DCC の設定値（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2021-06-04T12:29:28.136Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-06-04T12:29:42.460Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 DCC の設定値（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 DCC の設定値（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2021-06-06T15:46:01.843Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-06-06T15:46:16.872Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
