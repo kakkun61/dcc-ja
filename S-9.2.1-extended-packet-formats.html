@@ -385,7 +385,7 @@
 <tbody>
 <tr>
 <td style="text-align:center"><code>000</code></td>
-<td>デコーダー制御と編成制御命令</td>
+<td>デコーダー制御命令と編成制御命令</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>001</code></td>
@@ -418,7 +418,7 @@
 </tbody>
 </table>
 <p>The last byte of the packet is the Error Detection Byte, which is calculated the same as is done in the baseline packet using all address, and all instruction bytes (see S-9.2).</p>
-<h3 id="デコーダー制御と編成制御命令（000）">デコーダー制御と編成制御命令（<code>000</code>）</h3>
+<h3 id="デコーダー制御命令と編成制御命令（000）">デコーダー制御命令と編成制御命令（<code>000</code>）</h3>
 <p>With the exception of the decoder acknowledgment function (00001111), only a single decoder and consist control instruction may be contained in a packet.</p>
 <h4 id="デコーダー制御（0000）">デコーダー制御（<code>0000</code>）</h4>
 <p>The decoder control instructions are intended to set up or modify decoder configurations.</p>
@@ -436,11 +436,11 @@
 <tbody>
 <tr>
 <td style="text-align:center"><code>0000</code></td>
-<td>デジタルデコーダーリセット<br>デジタルデコーダーリセットは（速度と方向データを含め）すべての揮発性記憶を消去し、S-9.2.4 の A に定義された初期起動状態へ戻らなければいけません。コマンドステーションはアドレス112～127にデジタルデコーダーリセットの後10パケット期間はパケットを送信してはいけません。これは、デコーダーがサービスモード命令パケットを運転モードパケットとして実行しはじめないようにするためです（サービスモード命令パケットは10進数で112～127の短形式アドレスをもちます）。</td>
+<td>デジタルデコーダーリセット</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>0001</code></td>
-<td>強制リセット<br>CV 29・31・32 は工場出荷状態にリセットされ、CV 19 は <code>00000000</code> に設定され、上記命令の通りデジタルデコーダーリセットが実行されなければいけません。</td>
+<td>強制リセット</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>1111</code></td>
@@ -458,7 +458,7 @@
 <tbody>
 <tr>
 <td style="text-align:center"><code>001</code></td>
-<td>工場試験命令<br>この命令は製造者が工場でデコーダーをテストするために使用されます。通常運用ではコマンドステーションはこの命令を送信してはいけません。この命令は多バイト命令である可能性があります。</td>
+<td>工場試験命令</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>010</code></td>
@@ -466,7 +466,7 @@
 </tr>
 <tr>
 <td style="text-align:center"><code>011</code></td>
-<td>デコーダーフラグの設定（下記参照）</td>
+<td>デコーダーフラグの設定</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>100</code></td>
@@ -482,6 +482,12 @@
 </tr>
 </tbody>
 </table>
+<h5 id="強制リセット">強制リセット</h5>
+<p>CV 29・31・32 は工場出荷状態にリセットされ、CV 19 は <code>00000000</code> に設定され、上記命令の通りデジタルデコーダーリセットが実行されなければいけません。</p>
+<h5 id="デジタルデコーダーリセット">デジタルデコーダーリセット</h5>
+<p>デジタルデコーダーリセットは（速度と方向データを含め）すべての揮発性記憶を消去し、S-9.2.4 の A に定義された初期起動状態へ戻らなければいけません。コマンドステーションはアドレス112～127にデジタルデコーダーリセットの後10パケット期間はパケットを送信してはいけません。これは、デコーダーがサービスモード命令パケットを運転モードパケットとして実行しはじめないようにするためです（サービスモード命令パケットは10進数で112～127の短形式アドレスをもちます）。</p>
+<h5 id="工場試験命令">工場試験命令</h5>
+<p>この命令は製造者が工場でデコーダーをテストするために使用されます。通常運用ではコマンドステーションはこの命令を送信してはいけません。この命令は多バイト命令である可能性があります。</p>
 <h5 id="デコーダーフラグの設定">デコーダーフラグの設定</h5>
 <blockquote>
 <p>この命令は NMRA DCC ワーキンググループで再評価中です。製造者はこの命令を実装する前に NMRA CDD 調整者に連絡をとるべきです。</p>
@@ -587,11 +593,11 @@
 <tbody>
 <tr>
 <td style="text-align:center"><code>11111</code></td>
-<td>128段階速度制御<br>命令 <code>11111</code> は126デジタルデコーダー速度段階のうちの1つを送信することに使用されます。続く単一のバイトは、ビット7が方向（<code>1</code> が前方で <code>0</code> が後方）、残りのビットが速度を示すのに使用されるように、速度と方向を定義しなければいけません。速度の最上位ビットはビット6です。<code>U0000000</code> のデータバイト値は停止に使用され、<code>U0000001</code> のデータバイト値は緊急停止に使用されます。これは最大126速度段階まで許容されます。運転モード応答が有効であるとき、128速度段階制御パケットの受信は運転モード応答によって応答されなければいけません。</td>
+<td>128段階速度制御</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>11110</code></td>
-<td>制限された速度制御命令<br>命令 <code>11110</code> はデコーダーの最大速度を制限するために使用されます。データバイト（上記で <code>DDDDDDDD</code>）のビット7は制限された速度運転を有効化（<code>0</code>）・無効化（<code>1</code>）します。データバイトのビット0～5は S-9.2 に定義された速度段階です<sup><a href="#fn_2" id="reffn_2">2</a></sup>。運転モード応答が有効であるとき、制限された速度命令の受信は運転モード応答によって応答されなければいけません。</td>
+<td>制限された速度制御命令</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>11101</code></td>
@@ -599,6 +605,10 @@
 </tr>
 </tbody>
 </table>
+<h4 id="128段階速度制御">128段階速度制御</h4>
+<p>命令 <code>11111</code> は126デジタルデコーダー速度段階のうちの1つを送信することに使用されます。続く単一のバイトは、ビット7が方向（<code>1</code> が前方で <code>0</code> が後方）、残りのビットが速度を示すのに使用されるように、速度と方向を定義しなければいけません。速度の最上位ビットはビット6です。<code>U0000000</code> のデータバイト値は停止に使用され、<code>U0000001</code> のデータバイト値は緊急停止に使用されます。これは最大126速度段階まで許容されます。運転モード応答が有効であるとき、128速度段階制御パケットの受信は運転モード応答によって応答されなければいけません。</p>
+<h4 id="制限された速度制御命令">制限された速度制御命令</h4>
+<p>命令 <code>11110</code> はデコーダーの最大速度を制限するために使用されます。データバイト（上記で <code>DDDDDDDD</code>）のビット7は制限された速度運転を有効化（<code>0</code>）・無効化（<code>1</code>）します。データバイトのビット0～5は S-9.2 に定義された速度段階です<sup><a href="#fn_2" id="reffn_2">2</a></sup>。運転モード応答が有効であるとき、制限された速度命令の受信は運転モード応答によって応答されなければいけません。</p>
 <h4 id="アナログ機能群">アナログ機能群</h4>
 <p>この命令の形式は下記です。</p>
 <pre><code>001CCCCC 0 VVVVVVVV 0 DDDDDDDD
@@ -739,7 +749,7 @@
 <h5 id="ビット演算">ビット演算</h5>
 <p>ビット操作命令はデータバイト（<code>DDDDDDDD</code>）に特別な形式を使用します。</p>
 <pre><code>111CDBBB
-</code></pre><p>Where BBB represents the bit position within the CV, D contains the value of the bit to be verified or written, and C describes whether the operation is a verify bit or a write bit operation.</p>
+</code></pre><p><code>BBB</code> が CV でのビット位置を意味する場合において、<code>D</code> は検証もしくは書き込みされるビットの値を含み、<code>C</code> は操作が検証ビット操作もしくは書き込みビット操作のどちらであるかをしめします。</p>
 <table>
 <thead>
 <tr>
@@ -758,7 +768,7 @@
 </tr>
 </tbody>
 </table>
-<p>The VERIFY BIT and WRITE BIT instructions operate in a manner similar to the VERIFY BYTE and WRITE BYTE instructions (but operates on a single bit). Using the same criteria as the VERIFY BYTE instruction, an operations mode acknowledgment will be generated in response to a VERIFY BIT instruction if appropriate. Using the same criteria as the WRITE BYTE instruction, a configuration variable access acknowledgment will be generated in response to the second identical WRITE BIT instruction if appropriate.</p>
+<p>検証ビット命令と書き込みビット命令は（単一のビットに対してということを除いて）検証バイト命令と検証バイト命令と同様に動作します。検証バイト命令と同じ基準を使用し、適切な場合、運転モード応答が検証ビット命令に返答して生成されます。書き込みバイト命令と同じ基準を使用し、適切な場合、CV 読み書き応答が2番目の同一の書き込みビット命令に返答して生成されます。</p>
 <h2 id="d：アクセサリーデジタルデコーダーパケット形式">D：アクセサリーデジタルデコーダーパケット形式</h2>
 <p>Accessory Digital Decoders are intended for control of a number of simple functions such as switch machine control or turning on and off lights. It is permissible to develop Digital Decoders that respond to multiple addresses so that more devices can be controlled by a single Digital Decoder.</p>
 <h3 id="基本アクセサリーデコーダーパケット形式">基本アクセサリーデコーダーパケット形式</h3>
@@ -792,7 +802,7 @@
 </code></pre><p>Please note that the use of 0 in bit 3 of byte 2 is to ensure that this packet cannot be confused with the legacy accessory-programming packets. The resulting packet would be:</p>
 <pre><code>前文 10AAAAAA 0 0AAA0AA1 0 (1110CCVV 0 VVVVVVVV 0 DDDDDDDD) 0 EEEEEEEE 1
      信号デコーダーアドレス（CV 読み書き命令）                エラーバイト
-</code></pre><h2 id="e：制御モード応答">E：制御モード応答</h2>
+</code></pre><h2 id="e：運転モード応答">E：運転モード応答</h2>
 <p>The operations-mode acknowledgment mechanism as defined in S-9.3.1 and S-9.3.2 are the only valid acknowledgement in operations mode. Whenever an acknowledgment is requested, the decoder shall respond using this mechanism described in S-9.3.1 and S-9.3.2.</p>
 <h2 id="付録-a">付録 A</h2>
 <p>This Appendix contains additional useful information and/or legacy instructions. A DCC product need not implement any items described in this appendix.</p>
@@ -873,7 +883,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 DCC の設定変数（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 DCC の設定変数（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css","head-append"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2021-06-07T17:19:09.788Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-06-07T17:19:24.135Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 DCC の設定変数（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 DCC の設定変数（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css","head-append"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2021-06-07T17:24:39.623Z","type":"markdown"},"gitbook":{"version":"3.6.20","time":"2021-06-07T17:24:57.343Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
