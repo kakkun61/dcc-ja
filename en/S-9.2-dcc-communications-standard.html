@@ -1,0 +1,491 @@
+
+<!DOCTYPE HTML>
+<html lang="en" >
+    <head>
+        <meta charset="UTF-8">
+        <title>S-9.2 Communication Standards · NMRA Standards and Recommended Practices</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="HonKit 3.7.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-add-js-css/0b29963fa2ef8a1e7e3ec581a22f7bcc-style.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-katex2/katex.min.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/@honkit/honkit-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-search/search.css">
+                
+            
+                
+                <link rel="stylesheet" href="../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+        
+
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="S-9.2.1-extended-packet-formats.html" />
+    
+    
+    <link rel="prev" href="S-9.1-electorical-standards.html" />
+    
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap" rel="stylesheet">
+
+    </head>
+    <body>
+        
+<div class="book honkit-cloak">
+    <div class="book-summary">
+        
+            
+<div id="book-search-input" role="search">
+    <input type="text" placeholder="Type to search" />
+</div>
+
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    Preface
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Standard, Recommended Practice, Technical Note, Technical Information</li>
+        
+        
+    
+        <li class="chapter " data-level="2.1" data-path="S-9.1-electorical-standards.html">
+            
+                <a href="S-9.1-electorical-standards.html">
+            
+                    
+                    S-9.1 Electrical Standards
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="2.2" data-path="S-9.2-dcc-communications-standard.html">
+            
+                <a href="S-9.2-dcc-communications-standard.html">
+            
+                    
+                    S-9.2 Communication Standards
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="2.2.1" data-path="S-9.2.1-extended-packet-formats.html">
+            
+                <a href="S-9.2.1-extended-packet-formats.html">
+            
+                    
+                    S-9.2.1 Extended Packet Formats
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="2.2.2" data-path="S-9.2.2-configuration-variables-for-dcc.html">
+            
+                <a href="S-9.2.2-configuration-variables-for-dcc.html">
+            
+                    
+                    S-9.2.2 Configuration Variables for DCC
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+        
+        <li class="header">Appendix</li>
+        
+        
+    
+        <li class="chapter " data-level="3.1" data-path="CONTRIBUTING.html">
+            
+                <a href="CONTRIBUTING.html">
+            
+                    
+                    Contributing
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="3.2" data-path="GLOSSARY.html">
+            
+                <a href="GLOSSARY.html">
+            
+                    
+                    Glossary
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://github.com/honkit/honkit" target="blank" class="gitbook-link">
+            Published with HonKit
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<div class="book-header" role="navigation">
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="." >S-9.2 Communication Standards</a>
+    </h1>
+</div>
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+<div id="book-search-results">
+    <div class="search-noresults">
+    
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="s-92-デジタルコマンドコントロールの通信標準">S-9.2 デジタルコマンドコントロールの通信標準</h1>
+<p><a href="https://www.nmra.org/sites/default/files/s-92-2004-07.pdf" target="_blank">原文</a></p>
+<p>原文版：July 2004</p>
+<p>この標準はデジタルコマンドステーションからデジタルデコーダーに送信される情報の形式について取り扱います。デジタルコマンドステーションは、S-9.1 に記載された NMRA デジタル信号を使って一連のビットを送信することで、この情報をデジタルデコーダーに転送します。この一連のビットをパケットと呼びます。デジタルデコーダーを動作させる命令のうちの1つを符号化するためにパケットは使用されます。意図した命令を適切に符号化・複合化するために、パケットは正確に定義されなければいけません。</p>
+<h2 id="a：一般パケット形式">A：一般パケット形式</h2>
+<p>下記の一連のビットによって妥当な NMRA パケットを定義します。この標準の目的において、この一般パケット形式の完全な定義に合致しないビットの並びは「パケット」ではありません。NMRA デジタルモードの動作において妥当なパケットに含まれない命令によってデジタルデコーダーは動作してはいけません<sup><a href="#fn_1" id="reffn_1">1</a></sup>。</p>
+<ul>
+<li><strong>前文</strong>（Preamble）<ul>
+<li>パケットの前文は <code>1</code> ビットの並びからなります。デジタルデコーダーは、10個未満の完全な <code>1</code> ビットを妥当であると受理してはいけず、12個より多くの完全な <code>1</code> ビットの並びをもつパケットの適切な受信を要求します。コマンドステーションは少なくとも14個の完全な前文ビットを送信しないといけません。</li>
+</ul>
+</li>
+<li><strong>パケット開始ビット</strong><ul>
+<li>パケット開始ビットは最初のビットで妥当な前文に続く <code>0</code> の値を持ちます。パケット開始ビットは前文を終わらせ、次のビットがアドレスデータバイトであることをしめします。</li>
+</ul>
+</li>
+<li><strong>アドレスデータバイト</strong><ul>
+<li>パケットの最初のバイトは通常、8ビットのアドレス情報をもちます<sup><a href="#fn_2" id="reffn_2">2</a></sup>。転送されるアドレスの最初のビットはアドレスデータバイトの最上位ビットであると定義されます。<code>00000000</code> と <code>11111110</code> そして <code>11111111</code> の値をもつアドレスデータバイトは特別な操作のために予約されており、この標準もしくは関連する推奨慣例において提供される場合をのぞき転送してはいけません。</li>
+</ul>
+</li>
+<li>1回以上の繰り返し<ul>
+<li><strong>データバイト開始ビット</strong><ul>
+<li>このビットはデータバイトに先行し <code>0</code> の値をもちます。</li>
+</ul>
+</li>
+<li><strong>データバイト</strong><ul>
+<li>それぞれのデータバイトは8ビットを含み、アドレス・命令・データ・エラー検出目的に使用される情報をもちます。転送されるデータのそれぞれのデータバイトの最初のビットはデータバイトの最上位ビットであると定義されます。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>パケット終了ビット</strong><ul>
+<li>このビットはパケットの終了をしめし、 <code>1</code> の値をもちます<sup><a href="#fn_3" id="reffn_3">3</a></sup>。</li>
+</ul>
+</li>
+</ul>
+<p>Figure 1 provides an example of an acceptable command control packet that uses three data bytes: one address data byte, one instruction data byte and one error detection data byte.</p>
+<h2 id="b：基準パケット">B：基準パケット</h2>
+<p>基準パケットは異なるシステム間の最低限の相互運用性を提供するために含まれます。ことなった種類のデコーダーや追加の機能・アドレス・速度のためのより複雑なパケットの形式は「拡張パケット形式の推奨慣例」（RP-9.2.1）で提供されます。この標準の意図するところは、コマンドステーションは基準パケット意味論にしたがって操縦者の制御の入力を符号化しなければいけないこと・デジタルデコーダーは基準パケット意味論にしたがって適切に機関車を制御識する電気的な出力を識別し提供しなければいけないことの確認です。デジタルデコーダーアイドルパケットとデジタルデコーダーブロードキャスト停止パケット<sup><a href="#fn_4" id="reffn_4">4</a></sup>はコマンドステーションには任意でデコーダーには必須です。</p>
+<h3 id="機関車デコーダー用速度・方向パケット">機関車デコーダー用速度・方向パケット</h3>
+<pre><code>111111111111 0 0AAAAAAA 0 01DCSSSS 0 EEEEEEEE 1
+前文           バイト1    バイト2    バイト3（エラー検出データバイト）
+</code></pre><ul>
+<li>バイト1：アドレスデータバイト <code>0AAAAAAA</code><ul>
+<li>アドレスデータバイトは意図したパケットの受信者のアドレスをもちます。全てのデジタルデコーダーは、基準パケット返答するために自身のアドレスを保持し識別できなければいけません。機関車デジタルデコーダーは使用者がこのアドレスを簡単に設定できる方法で基準アドレスの全範囲を処理できなければいけません<sup><a href="#fn_5" id="reffn_5">5</a></sup>。デジタルコマンドステーションが妥当なアドレスの個数を制限することは、包装や説明書にはっきりと明確に記載されている限り許容されます。</li>
+</ul>
+</li>
+<li>バイト2：命令データバイト <code>01DCSSSS</code><ul>
+<li>命令データバイトは速度と方向の情報を機関車デジタルデコーダーに転送するために使用されるデータバイトです。ビット0～3<sup><a href="#fn_6" id="reffn_6">6</a></sup>は速度のための4ビットを提供します。ビット0は最下位ビットです。バイト2のビット4（<code>C</code>）はデフォルトで追加の速度ビットで、速度ビットの最下位ビットです。後方互換性のためにこのビットは代わりにヘッドライトを制御するために使用されることがあります。この任意の使用は RP-9.2.1 に定義されています。ビット5（<code>D</code>）は方向のための1ビットです。方向ビット（<code>D</code>）が <code>1</code> の値のとき、機関車は前方に進まないとけません<sup><a href="#fn_7" id="reffn_7">7</a></sup>。 <code>0</code> の値をもつ方向ビットは機関車を後方に動かさないといけません。ビット6と7はこの命令データバイトが速度と方向であることをあらわす <code>01</code> のビットの並びをもちます。</li>
+</ul>
+</li>
+<li>バイト3：エラー検出データバイト <code>EEEEEEEE</code><ul>
+<li>エラー検出データバイトは転送エラーの存在を検出するために使用されるデータバイトです。エラー検出データバイトの中身は、該当パケットのアドレスデータバイトと命令データバイトの中身のビット単位排他的論理和です。（e.g. the exclusive OR of bit 0 of the address data byte and bit 0 of the instruction data byte will be placed in bit 0 of the error detection data byte…）基準パケットを受信するデジタルデコーダーは、受信したエラー検出データバイトを、受信したアドレスデータバイトと命令データバイトのビット単位排他的論理和と比較し、一致しない場合パケットの中身を無視しなければいけません。</li>
+</ul>
+</li>
+</ul>
+<p>The example packet shown in figure 1 illustrates a baseline packet with the instruction to locomotive 55 to proceed in the forward direction at speed step 6.</p>
+<h3 id="全デコーダー用デジタルデコーダーリセットパケット">全デコーダー用デジタルデコーダーリセットパケット</h3>
+<pre><code>111111111111 0 00000000 0 00000000 0 00000000 1
+前文           バイト1    バイト2    バイト3（エラー検出データバイト）
+</code></pre><p>3バイトそれぞれの8ビットが全て <code>0</code> の値を持つ3バイトパケットはデジタルデコーダーリセットパケットとして定義されます。デジタルデコーダーがデジタルデコーダーリセットパケットを受信したとき、デジタルデコーダーは（速度と方向を含む）揮発記憶を消去し、通常起動状態に戻らないといけません。デジタルデコーダーがデジタルデコーダーリセットを受信したとき機関車を非ゼロ速度で制御していた場合、デジタルデコーダーは機関車を即座に停止させなければいけません。</p>
+<p>デジタルデコーダーリセットパケットの後、コマンドステーションは、サービスモードに入ることを意図していない限り、アドレスデータバイトが <code>01100100</code> と <code>01111111</code> の間のパケットを20ミリ秒以内に送ってはいけません<sup><a href="#fn_9" id="reffn_9">9</a></sup>。</p>
+<h3 id="全デコーダー用デジタルデコーダーアイドルパケット">全デコーダー用デジタルデコーダーアイドルパケット</h3>
+<pre><code>111111111111 0 11111111 0 00000000 0 11111111 1
+前文           バイト1    バイト2    バイト3（エラー検出データバイト）
+</code></pre><p>最初のバイトが8つの <code>1</code> をもち、2番目のバイトが8つの <code>0</code> をもち、3番目（最後）のバイトが8つの <code>1</code> をもつ3バイトパケットはデジタルデコーダーアイドルパケットとして定義されます。このパケットを受信すると、デジタルデコーダーは新規の動作をしてはいけないだけでなく、それが他のデコーダー向けの通常のデジタルパケットであるかのように動作しなければなりません。</p>
+<h3 id="全デコーダー用デジタルデコーダーブロードキャスト停止パケット10">全デコーダー用デジタルデコーダーブロードキャスト停止パケット<sup><a href="#fn_10" id="reffn_10">10</a></sup></h3>
+<pre><code>111111111111 0 00000000 0 01DC000S 0 EEEEEEEE 1
+前文           バイト1    バイト2    バイト3（エラー検出データバイト）
+</code></pre><p>最初のバイトが8つの <code>0</code> をもち、2番目のバイトが特定の停止コマンドをもち、3番目（最後）のバイトが2番目のバイトと同一のエラーバイトをもつ3バイトパケットはデジタルデコーダーブロードキャスト停止パケットであると定義されます。バイト2のビット2（<code>S</code>）が <code>0</code> の値をもつこのパケットを受信した場合、機関車のモーターを制御することを意図したデジタルデコーダーは機関車を停止させなければいけません。</p>
+<p>バイト2のビット2（<code>S</code>）が <code>1</code> の値をもつこのパケットを受信した場合、機関車のモーターを制御することを意図したデジタルデコーダーはモーターへのエネルギー供給を停止させなければいけません。バイト2のビット4（<code>C</code>）が <code>1</code> の値をもつ場合、バイト2のビット5（<code>D</code>）の方向ビットは方向に影響する機能に大して選択的に無視することができます。</p>
+<h2 id="c：パケット転送頻度">C：パケット転送頻度</h2>
+<p>雑音や車輪とレールの間の接触不良によってパケットが紛失される可能性があるため、デジタルデコーダーへのパケットは可能な限り頻繁に繰り返されなければいけません。Power may also be removed from the rails between the Packet End Bit and the Preamble of the next packet to allow for alternative command control formats. A Digital Decoder shall be able to act upon multiple packets addressed to it, provided the time between the packet end bit of the first packet and the packet start bit of the second packet are separated by at least 5 milliseconds<sup><a href="#fn_11" id="reffn_11">11</a></sup>. If a decoder receives a bit sequence with a missing or invalid data byte start bit, a missing or invalid packet end bit, or an incorrect error detection byte, it must recognize the next valid preamble sequence as the beginning of a new packet. Alternative command control formats are specifically allowed between the packet end bit and the start of the next preamble.</p>
+<p>Manufacturers of decoders are encouraged to provide automatic conversion for a variety of power signals and
+command control formats in addition to the NMRA digital signal (per S-9.1), provided that automatic conversion to these alternate power signals can be disabled. If automatic conversion is enabled, Digital Decoders must remain in digital mode and not convert to using any alternate power signal so long as the time between Packet Start Bits is less than or equal to 30 milliseconds in duration. If automatic conversion is disabled, Digital Decoders must remain in digital mode regardless of the timing of Packet Start Bits. It shall be possible to configure Digital Command Stations to transmit at least one complete packet every 30 milliseconds as measured from the time between packet start bits<sup><a href="#fn_12" id="reffn_12">12</a></sup> <sup><a href="#fn_13" id="reffn_13">13</a></sup>.</p>
+<blockquote id="fn_1">
+<sup>1</sup>. It is permissible for <em>Digital Decoders</em> to accept formats in addition to the NMRA General Packet Format. See Section C for details.<a href="#reffn_1" title="Jump back to footnote [1] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_2">
+<sup>2</sup>. The first byte can also be used in special cases to indicate instructions. See the Service Mode Recommended Practice (RP-9.2.3) for an example of this dual use.<a href="#reffn_2" title="Jump back to footnote [2] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_3">
+<sup>3</sup>. The Packet End Bit may count as one of the preamble bits of the subsequent packet if there are no inter-packet bits from an alternative command control protocol. The DCC bitstream must continue for an additional 26 µS (minimum) after the packet end bit.<a href="#reffn_3" title="Jump back to footnote [3] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_4">
+<sup>4</sup>. Broadcast Stop Packet requirement for decoders, effective 1-Aug-2002.<a href="#reffn_4" title="Jump back to footnote [4] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_5">
+<sup>5</sup>. The Service Mode Recommended Practice (RP-9.2.3) contains one example of an acceptable method for user address configuration.<a href="#reffn_5" title="Jump back to footnote [5] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_6">
+<sup>6</sup>. Bits within a byte are numbered right to left with bit 0 (the right most bit) being the least significant bit and bit 7 (the left most bit) being the most significant bit.<a href="#reffn_6" title="Jump back to footnote [6] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_7">
+<sup>7</sup>. Forward in this case is in the direction of the front of the locomotive, as observed from the engineer&apos;s position within the locomotive.<a href="#reffn_7" title="Jump back to footnote [7] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_8">
+<sup>8</sup>. Other bit patterns in bits 7 and 6 are reserved for other types of instruction data, and are defined in the Extended Packet Format Recommended Practice (RP-9.2.1).<a href="#reffn_8" title="Jump back to footnote [8] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_9">
+<sup>9</sup>. Digital Decoders can have their configurations altered immediately after a digital decoder reset packet. See the Service Mode Recommended Practice (RP-9.2.3) for details.<a href="#reffn_9" title="Jump back to footnote [9] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_10">
+<sup>10</sup>. Broadcast Stop Packet requirement for decoders, effective 1-Aug-2002.<a href="#reffn_10" title="Jump back to footnote [10] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_11">
+<sup>11</sup>. Care must be taken to ensure that two packets with identical addresses are not are not transmitted within 5 milliseconds of each other for addresses in the range between 112-127 as older decoders may interpret these packets as service mode packets (see RP-9.2.3).<a href="#reffn_11" title="Jump back to footnote [11] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_12">
+<sup>12</sup>. Some DCC decoders manufactured prior to the NMRA standards require a valid baseline packet be received every 30 milliseconds to prevent analog power conversion.<a href="#reffn_12" title="Jump back to footnote [12] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_13">
+<sup>13</sup>. Longer repetition rates may result in less than optimal decoder performance.<a href="#reffn_13" title="Jump back to footnote [13] in the text."> ↩</a>
+</blockquote>
+
+                                
+                                </section>
+                            
+    </div>
+    <div class="search-results">
+        <div class="has-results">
+            
+            <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+            <ul class="search-results-list"></ul>
+            
+        </div>
+        <div class="no-results">
+            
+            <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+            
+        </div>
+    </div>
+</div>
+
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="S-9.1-electorical-standards.html" class="navigation navigation-prev " aria-label="Previous page: S-9.1 Electrical Standards">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="S-9.2.1-extended-packet-formats.html" class="navigation navigation-next " aria-label="Next page: S-9.2.1 Extended Packet Formats">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"title":"S-9.2 Communication Standards","level":"2.2","depth":1,"next":{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},"previous":{"title":"S-9.1 Electrical Standards","level":"2.1","depth":1,"path":"S-9.1-electorical-standards.md","ref":"S-9.1-electorical-standards.md","articles":[]},"articles":[{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}],"dir":"ltr"},"config":{"plugins":["add-js-css","head-append","katex2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"katex2":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA Standards and Recommended Practices","language":"en","gitbook":"*"},"file":{"path":"S-9.2-dcc-communications-standard.md","mtime":"2022-06-20T16:07:05.969Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-20T16:07:22.824Z"},"basePath":".","book":{"language":"en"}});
+        });
+    </script>
+</div>
+
+        
+    <noscript>
+        <style>
+            .honkit-cloak {
+                display: block !important;
+            }
+        </style>
+    </noscript>
+    <script>
+        // Restore sidebar state as critical path for prevent layout shift
+        function __init__getSidebarState(defaultValue){
+            var baseKey = "";
+            var key = baseKey + ":sidebar";
+            try {
+                var value = localStorage[key];
+                if (value === undefined) {
+                    return defaultValue;
+                }
+                var parsed = JSON.parse(value);
+                return parsed == null ? defaultValue : parsed;
+            } catch (e) {
+                return defaultValue;
+            }
+        }
+        function __init__restoreLastSidebarState() {
+            var isMobile = window.matchMedia("(max-width: 600px)").matches;
+            if (isMobile) {
+                // Init last state if not mobile
+                return;
+            }
+            var sidebarState = __init__getSidebarState(true);
+            var book = document.querySelector(".book");
+            // Show sidebar if it enabled
+            if (sidebarState && book) {
+                book.classList.add("without-animation", "with-summary");
+            }
+        }
+
+        try {
+            __init__restoreLastSidebarState();
+        } finally {
+            var book = document.querySelector(".book");
+            book.classList.remove("honkit-cloak");
+        }
+    </script>
+    <script src="../gitbook/gitbook.js"></script>
+    <script src="../gitbook/theme.js"></script>
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search-engine.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-search/search.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/lunr.min.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-lunr/search-lunr.js"></script>
+        
+    
+        
+        <script src="../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
