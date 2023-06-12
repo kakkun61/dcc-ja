@@ -6,7 +6,7 @@
         <title>S-9.2.1 DCC 拡張パケット形式 · NMRA 標準と推奨慣例</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.7.3">
+        <meta name="generator" content="HonKit 3.7.4">
         
         
         
@@ -259,6 +259,9 @@
                                 <h1 id="s-921-デジタルコマンドコントロールの拡張パケット形式">S-9.2.1 デジタルコマンドコントロールの拡張パケット形式</h1>
 <p><a href="https://www.nmra.org/sites/default/files/s-9.2.1_2012_07.pdf" target="_blank">原文</a></p>
 <p>原文版：July 2012</p>
+<blockquote>
+<p>This document received approval from the NMRA Board of Trustees in July 1995, March 1997, July 2003 and January 2006. Changes since the last approved version are indicated by change bars on the left or right side of the document. Minor edit changes made to agree with S-9.2.2. Edit changes made July 2009. Changed to Standard July 2012.</p>
+</blockquote>
 <p>NMRA の「デジタルコマンドコントロールの通信標準（S-9.2）」は相互運用性のための最低限で基本的なパケット形式を提供しています。この標準は、発生する現実的な運用を可能にする枠組みを提供する拡張パケット形式を提供します。この形式は S-9.2 で定義される一般パケット形式にしたがいます。基準パケットは <code>0</code> ビットで分割された3バイトでしたが、拡張パケット形式では <code>0</code> ビットで分割された3から6バイトをもちえます。</p>
 <h3 id="形式定義">形式定義</h3>
 <p>この標準では、アドレスとデータバイト内のビットは次に示す省略によって定義されます。パケット形式のそれぞれのバイトは空白によって分割されます。角括弧（<code>[</code>・<code>]</code>）によって囲われたバイトは必要に応じて1回以上出現します。ビットは右から左の順に番号が付けられます。ビット0（最右ビット）は最下位ビット（LSB）、ビット7（最左ビット）は最上位ビット（MSB）となります。</p>
@@ -373,7 +376,7 @@
 <pre><code>前文 0 [ AAAAAAAA ] 0 命令バイト 0 EEEEEEEE 1
 </code></pre><p>多機能デジタルデコーダーは1つ以上のモーターやアクセサリーを操作する目的で使用されます。これらの機器を操作するために使用されるパケット形式は3から6バイトで構成されます。最初のバイトはアドレスバイトで、それに続き1つか2つの命令バイトが、最後はエラー制御バイトで終わります。</p>
 <p>最初のアドレスバイトは、8ビットのアドレス情報をもちます。もしアドレスの最上位の2ビットが <code>11</code> で残りが <code>111111</code> でない場合、2番目のアドレスバイトがそのすぐ後に続かなければいけません。この2番目のアドレスバイトは8ビットの追加のアドレス情報をもちます。 アドレス情報が2バイトあるとき、それらは <code>0</code> ビットで分割されます。2バイトアドレスの最上位ビットは最初のアドレスバイトのビット5です（この場合ビット6とビット7は <code>1</code> の値をもちます）。</p>
-<p>命令バイトは多機能デジタルデコーダーにコマンドを送信するために使用されるデータバイトです。すべてのデジタルデコーダーがすべての命令を実装していませんが、もし1つ以上の命令を解釈できる場合、バイトが新規の命令なのか前の命令の2番目のバイトなのかを認識できるようにデジタルデコーダーがパケットを十分に解析できることは重要です</p>
+<p>命令バイトは多機能デジタルデコーダーにコマンドを送信するために使用されるデータバイトです。すべてのデジタルデコーダーがすべての命令を実装していませんが、もし1つ以上の命令を解釈できる場合、バイトが新規の命令なのか前の命令の2番目のバイトなのかを認識できるようにデジタルデコーダーがパケットを十分に解析できることは重要です。</p>
 <p>それぞれの命令は下記のように定義されます。</p>
 <pre><code>命令バイト = CCCDDDDD または
              CCCDDDDD 0 DDDDDDDD または
@@ -423,13 +426,13 @@
 </table>
 <p>The last byte of the packet is the Error Detection Byte, which is calculated the same as is done in the baseline packet using all address, and all instruction bytes (see S-9.2).</p>
 <h3 id="デコーダー制御命令と編成制御命令（000）">デコーダー制御命令と編成制御命令（<code>000</code>）</h3>
-<p>With the exception of the decoder acknowledgment function (00001111), only a single decoder and consist control instruction may be contained in a packet.</p>
+<p>デコーダー応答機能（<code>00001111</code>）をのぞいて、単一のデコーダーと編成制御命令のみひとつのパケットにふくめることができます。</p>
 <h4 id="デコーダー制御（0000）">デコーダー制御（<code>0000</code>）</h4>
-<p>The decoder control instructions are intended to set up or modify decoder configurations.</p>
+<p>デコーダー制御命令はデコーダー設定の初期設定や変更をするためにあります。</p>
 <p>このパケットの形式は下記です。</p>
 <pre><code>命令バイト = 0000CCCF または
              0000CCCF DDDDDDDD
-</code></pre><p>This instruction (0000CCCF) allows specific decoder features to be set or cleared as defined by the value of D (&quot;1&quot; indicates set). When the decoder has decoder acknowledgment enabled, receipt of a decoder control instruction shall be acknowledged with an operations mode acknowledgment.</p>
+</code></pre><p>この命令（<code>0000CCCF</code>）は特定のデコーダー機能が <code>D</code> の値によって設定もしくは削除されることを許可します（<code>1</code> は設定を意味します）。デコーダーでデコーダー応答機能が有効な場合、デコーダー制御命令の受信は運転モード応答によって応答されるべきです。</p>
 <table>
 <thead>
 <tr>
@@ -496,10 +499,10 @@
 <blockquote>
 <p>この命令は NMRA DCC ワーキンググループで再評価中です。製造者はこの命令を実装する前に NMRA CDD 調整者に連絡をとるべきです。</p>
 </blockquote>
-<p>Set Decoder Flags is an expanded decoder control function that allows for the command station to turn on or off flags within a specific decoder or within a group of decoders.</p>
+<p>デコーダーフラグ設定は拡張されたデコーダー制御機能で、コマンドステーションに特定のデコーダーもしくはデコーダーのグループのフラグをオン・オフできるようにします。</p>
 <p>このパケットの形式は下記です。</p>
 <pre><code>命令バイト = 0000011D CCCC0SSS
-</code></pre><p>SSS is the decoder’s sub-address. This allows for up to 7 decoders to share the same decoder primary address, yet have certain functions (such as Configuration Variable Access Instructions) be performed on an individual basis. If SSS = 000 then the operation affects all decoders within the group. The decoder sub-address is defined in CV15.</p>
+</code></pre><p><code>SSS</code> はそのデコーダーの副アドレスです。これは、最大で7つのデコーダーに主アドレスを共有することを許可し、しかし特定の機能（設定値アクセス命令のような）では個別に実施されます。<code>SSS</code> が <code>000</code> のとき操作はグループ内のすべてのデコーダーに反映されます。デコーダー副アドレスは CV15 で定義されます。</p>
 <p><code>D</code> が <code>1</code> の場合、<code>CCCC</code> は下記の表によって定義されます。</p>
 <table>
 <thead>
@@ -549,7 +552,7 @@
 </tr>
 </tbody>
 </table>
-<p>Note: This command is valid at both the decoder’s base address and (if active) the consist address. If sent to the base address, the command affects both the base address and the active consist address (if any). If sent to the consist address, and D=0 this command has no effect on the base address. If sent to the consist address, and D=1 this command has no effect.</p>
+<p>備考：この命令は、デコーダーの基本アドレスと（有効な場合は）編成アドレスの両方に対して妥当です。基本アドレスに送信された場合、この命令は基本アドレスと（あれば）有効な編成アドレスの両方に影響します。編成アドレスに送信された場合、<code>D</code> = <code>0</code> ではこの命令は基本アドレスに影響しません。編成アドレスに送信された場合、<code>D</code> = <code>1</code> ではこの命令は効果がありません。</p>
 <h4 id="編成制御（0001）">編成制御（<code>0001</code>）</h4>
 <p>この命令は編成のセットアップと有効化・無効化の制御をします。</p>
 <p>編成制御が有効なとき、デコーダーはその通常の機関車アドレスがその編成アドレスと一緒でない限り、その通常の機関車アドレスへの速度方向命令を無視します。速度方向命令は編成アドレスにのみ適用されます。</p>
@@ -774,11 +777,11 @@
 </table>
 <p>検証ビット命令と書き込みビット命令は（単一のビットに対してということを除いて）検証バイト命令と検証バイト命令と同様に動作します。検証バイト命令と同じ基準を使用し、適切な場合、運転モード応答が検証ビット命令に返答して生成されます。書き込みバイト命令と同じ基準を使用し、適切な場合、CV 読み書き応答が2番目の同一の書き込みビット命令に返答して生成されます。</p>
 <h2 id="d：アクセサリーデジタルデコーダーパケット形式">D：アクセサリーデジタルデコーダーパケット形式</h2>
-<p>Accessory Digital Decoders are intended for control of a number of simple functions such as switch machine control or turning on and off lights. It is permissible to develop Digital Decoders that respond to multiple addresses so that more devices can be controlled by a single Digital Decoder.</p>
+<p>アクセサリーデジタルデコーダーは、転轍機制御やライトのオン・オフなどの複数の単純な機能の制御に使用されます。複数のアドレスに応答するデジタルデコーダーを開発して、単一のデジタルデコーダーでより多くのデバイスを制御することもできます。</p>
 <h3 id="基本アクセサリーデコーダーパケット形式">基本アクセサリーデコーダーパケット形式</h3>
-<p>The format for packets intended for Accessory Digital Decoders is:</p>
+<p>アクセサリーデジタルデコーターのパケットの形式は下記です。</p>
 <pre><code>前文 0 10AAAAAA 0 1AAACDDD 0 EEEEEEEE 1
-</code></pre><p>Accessory Digital Decoders can be designed to control momentary or constant-on devices, the duration of time each output is active being controlled by configuration variables CVs #515 through 518. Bit 3 of the second byte &quot;C&quot; is used to activate or deactivate the addressed device. (Note if the duration the device is intended to be on is less than or equal the set duration, no deactivation is necessary.) Since most devices are paired, the convention is that bit &quot;0&quot; of the second byte is used to distinguish between which of a pair of outputs the accessory decoder is activating or deactivating. Bits 1 and 2 of byte two are used to indicate which of 4 pairs of outputs the packet is controlling. The most significant bits of the 9-bit address are bits 4-6 of the second data byte. By convention these bits (bits 4-6 of the second data byte) are in ones complement.</p>
+</code></pre><p>アクセサリーデジタルデコーダーは、瞬間的なものや常時オンのものを制御するように設計できます。各出力がアクティブになる時間の長さは、設定変数 CV 515～518 によって制御されます。バイト2のビット3 <code>C</code> は、アドレス指定されたデバイスをアクティブにするか非アクティブにするかを制御するために使用されます（デバイスがオンになる期間が設定された期間以下の場合、非アクティブにする必要はありません）。ほとんどのデバイスはペアになっているので、慣例としてバイト2のビット0 は、アクセサリーデコーダーが有効にするか無効にするかを区別するために使用されます。バイト2のビット1と2は、パケットが制御している4組の出力のうちどれかを示すために使用されます。9ビットアドレスの最上位ビットは、第2データバイトのビット4～6です。慣習として、これらのビット（第2データバイトのビット4～6）は1の補数表現になっています。</p>
 <p>運転モード応答が有効であるとき、基本アクセサリーデコーダーパケットは運転モード応答によって応答されなければいけません。</p>
 <h3 id="拡張アクセサリーデコーダー制御パケット形式">拡張アクセサリーデコーダー制御パケット形式</h3>
 <p>The Extended Accessory Decoder Control Packet is included for the purpose of transmitting aspect control to signal decoders or data bytes to more complex accessory decoders. Each signal head can display one aspect at a time.</p>
@@ -887,7 +890,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 DCC の設定変数（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 DCC の設定変数（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css","head-append","katex2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"katex2":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2022-06-20T16:07:05.969Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-20T16:07:22.824Z"},"basePath":".","book":{"language":"ja"}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 DCC の設定変数（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 DCC 通信標準","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 DCC 拡張パケット形式","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 DCC の設定変数（CV）","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css","head-append","katex2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"katex2":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA 標準と推奨慣例","language":"ja","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2023-06-12T12:59:25.453Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-12T12:59:37.720Z"},"basePath":".","book":{"language":"ja"}});
         });
     </script>
 </div>

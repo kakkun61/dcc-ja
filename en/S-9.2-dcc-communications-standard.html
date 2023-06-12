@@ -6,7 +6,7 @@
         <title>S-9.2 Communication Standards · NMRA Standards and Recommended Practices</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.7.3">
+        <meta name="generator" content="HonKit 3.7.4">
         
         
         
@@ -256,62 +256,132 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="s-92-デジタルコマンドコントロールの通信標準">S-9.2 デジタルコマンドコントロールの通信標準</h1>
-<p><a href="https://www.nmra.org/sites/default/files/s-92-2004-07.pdf" target="_blank">原文</a></p>
-<p>原文版：July 2004</p>
-<p>この標準はデジタルコマンドステーションからデジタルデコーダーに送信される情報の形式について取り扱います。デジタルコマンドステーションは、S-9.1 に記載された NMRA デジタル信号を使って一連のビットを送信することで、この情報をデジタルデコーダーに転送します。この一連のビットをパケットと呼びます。デジタルデコーダーを動作させる命令のうちの1つを符号化するためにパケットは使用されます。意図した命令を適切に符号化・複合化するために、パケットは正確に定義されなければいけません。</p>
-<h2 id="a：一般パケット形式">A：一般パケット形式</h2>
-<p>下記の一連のビットによって妥当な NMRA パケットを定義します。この標準の目的において、この一般パケット形式の完全な定義に合致しないビットの並びは「パケット」ではありません。NMRA デジタルモードの動作において妥当なパケットに含まれない命令によってデジタルデコーダーは動作してはいけません<sup><a href="#fn_1" id="reffn_1">1</a></sup>。</p>
+                                <h1 id="s-92-dcc-communications-standards">S-9.2 DCC Communications Standards</h1>
+<p><a href="https://www.nmra.org/sites/default/files/s-92-2004-07.pdf" target="_blank">Original</a></p>
+<p>Original Version: July 2004</p>
+<p>This standard covers the format of the information sent via Digital Command Stations to Digital Decoders. A Digital Command Station transmits this information to Digital Decoders by sending a series of bits using the NMRA digital signal described in S-9.1. This sequence of bits, termed a packet, is used to encode one of a set of
+instructions that the Digital Decoder operates upon. Packets must be precisely defined to ensure that the intended instructions can be properly encoded and decoded.</p>
+<h2 id="a-general-packet-format">A: General Packet Format</h2>
+<p>The following sequence of bits defines a valid NMRA packet. Any sequence of bits not meeting the full specifications of this general packet format is not, for the purpose of this standard, a &quot;packet&quot;. Digital decoders should not act on any instructions that are not contained within a valid packet while in the NMRA digital mode of operation<sup><a href="#fn_1" id="reffn_1">1</a></sup>.</p>
 <ul>
-<li><strong>前文</strong>（Preamble）<ul>
-<li>パケットの前文は <code>1</code> ビットの並びからなります。デジタルデコーダーは、10個未満の完全な <code>1</code> ビットを妥当であると受理してはいけず、12個より多くの完全な <code>1</code> ビットの並びをもつパケットの適切な受信を要求します。コマンドステーションは少なくとも14個の完全な前文ビットを送信しないといけません。</li>
+<li><strong>Preamble</strong><ul>
+<li>The preamble to a packet consists of a sequence of <code>1</code> bits. A digital decoder must not accept as a valid, any preamble that has less than 10 complete <code>1</code> bits, or require for proper reception of a packet with more than 12 complete <code>1</code> bits. A command station must send a minimum of 14 full preamble bits.</li>
 </ul>
 </li>
-<li><strong>パケット開始ビット</strong><ul>
-<li>パケット開始ビットは最初のビットで妥当な前文に続く <code>0</code> の値を持ちます。パケット開始ビットは前文を終わらせ、次のビットがアドレスデータバイトであることをしめします。</li>
+<li><strong>Packet Start Bit</strong><ul>
+<li>The packet start bit is the first bit with a value of <code>0</code> that follows a valid preamble. The Packet Start Bit terminates the preamble and indicates that the next bits are an address data byte.</li>
 </ul>
 </li>
-<li><strong>アドレスデータバイト</strong><ul>
-<li>パケットの最初のバイトは通常、8ビットのアドレス情報をもちます<sup><a href="#fn_2" id="reffn_2">2</a></sup>。転送されるアドレスの最初のビットはアドレスデータバイトの最上位ビットであると定義されます。<code>00000000</code> と <code>11111110</code> そして <code>11111111</code> の値をもつアドレスデータバイトは特別な操作のために予約されており、この標準もしくは関連する推奨慣例において提供される場合をのぞき転送してはいけません。</li>
+<li><strong>Address Data Byte</strong><ul>
+<li>The first data byte of the packet normally contains eight bits of address information<sup><a href="#fn_2" id="reffn_2">2</a></sup>. The first transmitted address bit shall be defined to be the most significant bit of the address data byte. Address Data Bytes with values <code>00000000</code>, <code>11111110</code>, and <code>11111111</code> are reserved for special operations and must not be transmitted except as provided in this Standard or associated Recommended Practices.</li>
 </ul>
 </li>
-<li>1回以上の繰り返し<ul>
-<li><strong>データバイト開始ビット</strong><ul>
-<li>このビットはデータバイトに先行し <code>0</code> の値をもちます。</li>
+<li>This must occur one or more times<ul>
+<li><strong>Data Byte Start Bit</strong><ul>
+<li>This bit precedes a data byte and has the value of <code>0</code>.</li>
 </ul>
 </li>
-<li><strong>データバイト</strong><ul>
-<li>それぞれのデータバイトは8ビットを含み、アドレス・命令・データ・エラー検出目的に使用される情報をもちます。転送されるデータのそれぞれのデータバイトの最初のビットはデータバイトの最上位ビットであると定義されます。</li>
+<li><strong>Data Byte</strong><ul>
+<li>Each data byte contains eight bits of information used for address, instruction, data, or error detection purposes. The first transmitted data bit of each data byte shall be defined to be the most significant bit of the data byte.</li>
 </ul>
 </li>
 </ul>
 </li>
-<li><strong>パケット終了ビット</strong><ul>
-<li>このビットはパケットの終了をしめし、 <code>1</code> の値をもちます<sup><a href="#fn_3" id="reffn_3">3</a></sup>。</li>
+<li><strong>Packet End Bit</strong><ul>
+<li>This bit marks the termination of the packet and has a value of <code>1</code><sup><a href="#fn_3" id="reffn_3">3</a></sup>.</li>
 </ul>
 </li>
 </ul>
 <p>Figure 1 provides an example of an acceptable command control packet that uses three data bytes: one address data byte, one instruction data byte and one error detection data byte.</p>
-<h2 id="b：基準パケット">B：基準パケット</h2>
-<p>基準パケットは異なるシステム間の最低限の相互運用性を提供するために含まれます。ことなった種類のデコーダーや追加の機能・アドレス・速度のためのより複雑なパケットの形式は「拡張パケット形式の推奨慣例」（RP-9.2.1）で提供されます。この標準の意図するところは、コマンドステーションは基準パケット意味論にしたがって操縦者の制御の入力を符号化しなければいけないこと・デジタルデコーダーは基準パケット意味論にしたがって適切に機関車を制御識する電気的な出力を識別し提供しなければいけないことの確認です。デジタルデコーダーアイドルパケットとデジタルデコーダーブロードキャスト停止パケット<sup><a href="#fn_4" id="reffn_4">4</a></sup>はコマンドステーションには任意でデコーダーには必須です。</p>
-<h3 id="機関車デコーダー用速度・方向パケット">機関車デコーダー用速度・方向パケット</h3>
+<figure>
+<img alt="bit encoding" src="image/S-9.2/fig-1.png">
+<figcaption>Figure 1: Example of a Transmitted Packet</figcaption>
+</figure>
+
+<h2 id="b-baseline-packets">B: Baseline Packets</h2>
+<p>The Baseline Packets are included to provide the minimum interoperability between different systems. More complex packet formats that support different types of decoders, additional functions, addresses and speeds are provided in the Extended Packet Format Recommended Practice (RP-9.2.1). It is the intention of this Standard that, in order to conform: a Command Station must encode operator control input in conformance with the Baseline Packet semantics; and a Digital Decoder must recognize and provide suitable locomotive control electrical output in conformance with the Baseline Packet semantics. Digital Decoder Idle Packets and Digital Decoder Broadcast Stop Packets<sup><a href="#fn_4" id="reffn_4">4</a></sup> (defined below) are optional for Command Stations, and required for decoders.</p>
+<h3 id="speed-and-direction-packet-for-locomotive-decoders">Speed and Direction Packet For Locomotive Decoders</h3>
 <pre><code>111111111111 0 0AAAAAAA 0 01DCSSSS 0 EEEEEEEE 1
-前文           バイト1    バイト2    バイト3（エラー検出データバイト）
+Preamble       Byte One   Byte Two   Byte Three (Error Detection Data Byte)
 </code></pre><ul>
-<li>バイト1：アドレスデータバイト <code>0AAAAAAA</code><ul>
-<li>アドレスデータバイトは意図したパケットの受信者のアドレスをもちます。全てのデジタルデコーダーは、基準パケット返答するために自身のアドレスを保持し識別できなければいけません。機関車デジタルデコーダーは使用者がこのアドレスを簡単に設定できる方法で基準アドレスの全範囲を処理できなければいけません<sup><a href="#fn_5" id="reffn_5">5</a></sup>。デジタルコマンドステーションが妥当なアドレスの個数を制限することは、包装や説明書にはっきりと明確に記載されている限り許容されます。</li>
+<li>Byte One: Address Data Byte <code>0AAAAAAA</code><ul>
+<li>The address data byte contains the address of the intended recipient of the packet. Every Digital Decoder shall be capable of retaining and recognizing its own address for purposes of responding to Baseline Packets. Locomotive Digital Decoders shall support the full range of baseline addresses in such a manner that this address is easily configurable by the user<sup><a href="#fn_5" id="reffn_5">5</a></sup>. It is acceptable for Digital Command Stations to restrict the number of valid addresses supported so long as this restriction is clearly and plainly labeled on the package and in the instructions.</li>
 </ul>
 </li>
-<li>バイト2：命令データバイト <code>01DCSSSS</code><ul>
-<li>命令データバイトは速度と方向の情報を機関車デジタルデコーダーに転送するために使用されるデータバイトです。ビット0～3<sup><a href="#fn_6" id="reffn_6">6</a></sup>は速度のための4ビットを提供します。ビット0は最下位ビットです。バイト2のビット4（<code>C</code>）はデフォルトで追加の速度ビットで、速度ビットの最下位ビットです。後方互換性のためにこのビットは代わりにヘッドライトを制御するために使用されることがあります。この任意の使用は RP-9.2.1 に定義されています。ビット5（<code>D</code>）は方向のための1ビットです。方向ビット（<code>D</code>）が <code>1</code> の値のとき、機関車は前方に進まないとけません<sup><a href="#fn_7" id="reffn_7">7</a></sup>。 <code>0</code> の値をもつ方向ビットは機関車を後方に動かさないといけません。ビット6と7はこの命令データバイトが速度と方向であることをあらわす <code>01</code> のビットの並びをもちます。</li>
+<li>Byte Two: Instruction Data Byte <code>01DCSSSS</code><ul>
+<li>The instruction data byte is a data byte used to transmit speed and direction information to the locomotive Digital Decoder. Bits 0-3<sup><a href="#fn_6" id="reffn_6">6</a></sup> provides 4 bits for speed (<code>S</code>) with bit 0 being the least significant speed bit. Bit four of byte 2 (<code>C</code>) by default shall contain one additional speed bit, which is the least significant speed bit. For backward compatibility, this bit may instead be used to control the headlight. This optional use is defined in RP-9.2.1. Bit 5 provides one bit for direction (<code>D</code>). When the direction bit (<code>D</code>) has a value of <code>1</code> the locomotive should move in the forward direction<sup><a href="#fn_7" id="reffn_7">7</a></sup>. A direction bit with the value of <code>0</code> should cause the locomotive to go in the reverse direction. Bits 7 and 6 contain the bit sequence <code>01</code><sup><a href="#fn_8" id="reffn_8">8</a></sup> which are used to indicate that this instruction data byte is for speed and direction.</li>
 </ul>
 </li>
-<li>バイト3：エラー検出データバイト <code>EEEEEEEE</code><ul>
-<li>エラー検出データバイトは転送エラーの存在を検出するために使用されるデータバイトです。エラー検出データバイトの中身は、該当パケットのアドレスデータバイトと命令データバイトの中身のビット単位排他的論理和です。（e.g. the exclusive OR of bit 0 of the address data byte and bit 0 of the instruction data byte will be placed in bit 0 of the error detection data byte…）基準パケットを受信するデジタルデコーダーは、受信したエラー検出データバイトを、受信したアドレスデータバイトと命令データバイトのビット単位排他的論理和と比較し、一致しない場合パケットの中身を無視しなければいけません。</li>
+<li>Byte Three: Error Detection Data Byte <code>EEEEEEEE</code><ul>
+<li>The error detection data byte is a data byte used to detect the presence of transmission errors. The contents of the Error Detection Data Byte shall be the bitwise exclusive OR of the contents of the Address Data Byte and the Instruction Data Byte in the packet concerned. (e.g. the exclusive OR of bit 0 of the address data byte and bit 0 of the instruction data byte will be placed in bit 0 of the error detection data byte...) Digital Decoders receiving a Baseline Packet shall compare the received error detection data byte with the bitwise exclusive OR of the received address and instruction data bytes and ignore the contents of the packet if this comparison is not identical.</li>
 </ul>
 </li>
 </ul>
-<p>The example packet shown in figure 1 illustrates a baseline packet with the instruction to locomotive 55 to proceed in the forward direction at speed step 6.</p>
+<p>The example packet shown in figure 2 illustrates a baseline packet with the instruction to locomotive 55 to proceed in the forward direction at speed step 6.</p>
+<table>
+<thead>
+<tr>
+<th><code>CSSSS</code></th>
+<th>Speed</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>00000</code></td>
+<td>Stop</td>
+</tr>
+<tr>
+<td><code>10000</code></td>
+<td>Stop<sup><a href="#fn_I" id="reffn_I">I</a></sup></td>
+</tr>
+<tr>
+<td><code>00001</code></td>
+<td>E-Stop<sup><a href="#fn_*" id="reffn_*">*</a></sup></td>
+</tr>
+<tr>
+<td><code>10001</code></td>
+<td>E-Stop<sup><a href="#fn_*" id="reffn_*">*</a></sup><sup><a href="#fn_I" id="reffn_I">I</a></sup></td>
+</tr>
+<tr>
+<td><code>00010</code></td>
+<td>Step 1</td>
+</tr>
+<tr>
+<td><code>10010</code></td>
+<td>Step 2</td>
+</tr>
+<tr>
+<td><code>00011</code></td>
+<td>Step 3</td>
+</tr>
+<tr>
+<td><code>10011</code></td>
+<td>Step 4</td>
+</tr>
+<tr>
+<td>   :</td>
+<td>:</td>
+</tr>
+<tr>
+<td><code>01111</code></td>
+<td>Step 27</td>
+</tr>
+<tr>
+<td><code>11111</code></td>
+<td>Step 28</td>
+</tr>
+</tbody>
+</table>
+<blockquote id="fn_*">
+<sup>*</sup>. Digital Decoders shall immediately stop delivering power to the motor.<a href="#reffn_*" title="Jump back to footnote [*] in the text."> ↩</a>
+</blockquote>
+<blockquote id="fn_I">
+<sup>I</sup>. Direction bit may be ignored for directional sensitive functions. (Optional)<a href="#reffn_I" title="Jump back to footnote [I] in the text."> ↩</a>
+</blockquote>
+<figure>
+<figcaption>Figure 2: Speed Table for Baseline Packet</figcaption>
+</figure>
+
 <h3 id="全デコーダー用デジタルデコーダーリセットパケット">全デコーダー用デジタルデコーダーリセットパケット</h3>
 <pre><code>111111111111 0 00000000 0 00000000 0 00000000 1
 前文           バイト1    バイト2    バイト3（エラー検出データバイト）
@@ -412,7 +482,7 @@ command control formats in addition to the NMRA digital signal (per S-9.1), prov
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"S-9.2 Communication Standards","level":"2.2","depth":1,"next":{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},"previous":{"title":"S-9.1 Electrical Standards","level":"2.1","depth":1,"path":"S-9.1-electorical-standards.md","ref":"S-9.1-electorical-standards.md","articles":[]},"articles":[{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}],"dir":"ltr"},"config":{"plugins":["add-js-css","head-append","katex2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"katex2":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA Standards and Recommended Practices","language":"en","gitbook":"*"},"file":{"path":"S-9.2-dcc-communications-standard.md","mtime":"2022-06-20T16:07:05.969Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-20T16:07:22.824Z"},"basePath":".","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.2 Communication Standards","level":"2.2","depth":1,"next":{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},"previous":{"title":"S-9.1 Electrical Standards","level":"2.1","depth":1,"path":"S-9.1-electorical-standards.md","ref":"S-9.1-electorical-standards.md","articles":[]},"articles":[{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}],"dir":"ltr"},"config":{"plugins":["add-js-css","head-append","katex2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"katex2":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA Standards and Recommended Practices","language":"en","gitbook":"*"},"file":{"path":"S-9.2-dcc-communications-standard.md","mtime":"2023-06-12T12:59:25.449Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-12T12:59:37.720Z"},"basePath":".","book":{"language":"en"}});
         });
     </script>
 </div>

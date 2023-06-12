@@ -6,7 +6,7 @@
         <title>S-9.2.1 Extended Packet Formats · NMRA Standards and Recommended Practices</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="HonKit 3.7.3">
+        <meta name="generator" content="HonKit 3.7.4">
         
         
         
@@ -257,198 +257,201 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="s-921-デジタルコマンドコントロールの拡張パケット形式">S-9.2.1 デジタルコマンドコントロールの拡張パケット形式</h1>
-<p><a href="https://www.nmra.org/sites/default/files/s-9.2.1_2012_07.pdf" target="_blank">原文</a></p>
-<p>原文版：July 2012</p>
-<p>NMRA の「デジタルコマンドコントロールの通信標準（S-9.2）」は相互運用性のための最低限で基本的なパケット形式を提供しています。この標準は、発生する現実的な運用を可能にする枠組みを提供する拡張パケット形式を提供します。この形式は S-9.2 で定義される一般パケット形式にしたがいます。基準パケットは <code>0</code> ビットで分割された3バイトでしたが、拡張パケット形式では <code>0</code> ビットで分割された3から6バイトをもちえます。</p>
-<h3 id="形式定義">形式定義</h3>
-<p>この標準では、アドレスとデータバイト内のビットは次に示す省略によって定義されます。パケット形式のそれぞれのバイトは空白によって分割されます。角括弧（<code>[</code>・<code>]</code>）によって囲われたバイトは必要に応じて1回以上出現します。ビットは右から左の順に番号が付けられます。ビット0（最右ビット）は最下位ビット（LSB）、ビット7（最左ビット）は最上位ビット（MSB）となります。</p>
+<p><a href="https://www.nmra.org/sites/default/files/s-9.2.1_2012_07.pdf" target="_blank">Original</a></p>
+<p>Original version: July 2012</p>
+<blockquote>
+<p>This document received approval from the NMRA Board of Trustees in July 1995, March 1997, July 2003 and January 2006. Changes since the last approved version are indicated by change bars on the left or right side of the document. Minor edit changes made to agree with S-9.2.2. Edit changes made July 2009. Changed to Standard July 2012.</p>
+</blockquote>
+<p>The NMRA Communications Standard for Digital Communications (S-9.2) provides a minimal, basic packet format required for interoperability. This STANDARD provides Extended Packet Formats that provide the framework to enable realistic operations to occur. These formats adhere to the general packet format as defined in S-9.2. While the baseline packet has a length of 3 data bytes separated by a <code>0</code> bit, a packet using the extended packet format definition may have a length of between 3 and 6 data bytes each separated by a &quot;0&quot; bit.</p>
+<h3 id="format-definitions">Format Definitions</h3>
+<p>Within this Standard, bits within the address and data bytes will be defined using the following abbreviations. Individual bytes within a specific packet format are separated by spaces. Bytes which are within square <code>[]</code> brackets can occur one or more times as necessary. Bits are numbered from right to left with bit 0 (the right most bit) being the least significant bit (LSB) and bit 7 (the left most bit) being the most significant bit (MSB).</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">記号</th>
-<th>説明</th>
+<th style="text-align:center">Symbol</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center"><code>A</code></td>
-<td>アドレスビット</td>
+<td>Address bit</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>0</code></td>
-<td><code>0</code> 値ビット</td>
+<td>Bit with the value of <code>0</code></td>
 </tr>
 <tr>
 <td style="text-align:center"><code>1</code></td>
-<td><code>1</code> 値ビット</td>
+<td>Bit with the value of <code>1</code></td>
 </tr>
 <tr>
 <td style="text-align:center"><code>U</code></td>
-<td>未既定ビット（<code>0</code> 値でも <code>1</code> 値でもよい）</td>
+<td>Bit with undefined value either a <code>1</code> or a <code>0</code> is acceptable</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>B</code></td>
-<td>ビット位置・アドレス</td>
+<td>Bit position / address</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>C</code></td>
-<td>命令種別</td>
+<td>Instruction type fields</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>F</code></td>
-<td>命令実装判別子</td>
+<td>Flag to determine instruction implementation</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>L</code></td>
-<td>下位バイナリー状態制御アドレス</td>
+<td>Low order binary state control address</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>H</code></td>
-<td>上位バイナリー状態制御アドレス</td>
+<td>High order binary state control address</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>S</code></td>
-<td>デコーダー副アドレスビット</td>
+<td>Decoder sub address</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>V</code></td>
-<td>CV アドレスビット</td>
+<td>CV address bit</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>D</code></td>
-<td>データ</td>
+<td>data</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>X</code></td>
-<td>Signal Head Aspect Data Bit</td>
+<td>Signal head aspect data bit</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>E</code></td>
-<td>エラー検出ビット</td>
+<td>Error detection bit</td>
 </tr>
 </tbody>
 </table>
-<h2 id="a：アドレス分割">A：アドレス分割</h2>
-<p>拡張パケット形式のパケットの最初のバイトは主アドレスをもちます。ことなった種類のデコーダーのために、主アドレスは下記のように固定区分に分割されます。</p>
+<h2 id="a-address-partitions">A: Address Partitions</h2>
+<p>The first data byte of an Extended Packet Format packet contains the primary address. In order to allow for different types of decoders this primary address is subdivided into fixed partitions as follows.</p>
 <table>
 <thead>
 <tr>
-<th style="text-align:center">アドレス</th>
-<th>説明</th>
+<th style="text-align:center">Address</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align:center"><code>00000000</code>（<code>0</code>）</td>
-<td>ブロードキャストアドレス</td>
+<td style="text-align:center"><code>00000000</code> (<code>0</code>)</td>
+<td>Broadcast address</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>00000001</code> ～ <code>01111111</code>（<code>1</code> ～ <code>127</code>）</td>
-<td>7ビットアドレス多機能デコーダー</td>
+<td style="text-align:center"><code>00000001</code>-<code>01111111</code>(<code>1</code>-<code>127</code>)</td>
+<td>Multi function decoders with 7 bit addresses</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>10000001</code> ～ <code>10111111</code>（<code>128</code> ～ <code>191</code>）</td>
-<td>9ビットアドレス基本アクセサリーデコーダー<br>11ビットアドレス拡張アクセサリーデコーダー</td>
+<td style="text-align:center"><code>10000001</code>-<code>10111111</code>(<code>128</code>-<code>191</code>)</td>
+<td>Basic accessory decoders with 9 bit addresses<br> and extended accessory decoders with 11 bit addresses</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>11000001</code> ～ <code>11100111</code>（<code>192</code> ～ <code>231</code>）</td>
-<td>14ビットアドレス多機能デコーダー</td>
+<td style="text-align:center"><code>11000001</code>-<code>11100111</code>(<code>192</code>-<code>231</code>)</td>
+<td>Multi function decoders with 14 bit addresses</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>11101000</code> ～ <code>11111110</code>（<code>232</code> ～ <code>254</code>）</td>
-<td>将来の使用のため予約</td>
+<td style="text-align:center"><code>11101000</code>-<code>11111110</code>(<code>232</code>-<code>254</code>)</td>
+<td>Reserved for future use</td>
 </tr>
 <tr>
-<td style="text-align:center"><code>11111111</code>（<code>255</code>）</td>
-<td>アイドルパケット</td>
+<td style="text-align:center"><code>11111111</code> (<code>255</code>)</td>
+<td>Idle packet</td>
 </tr>
 </tbody>
 </table>
-<h2 id="b：多機能デジタルデコーダー用ブロードキャストコマンド">B：多機能デジタルデコーダー用ブロードキャストコマンド</h2>
-<p>このパケットの形式は下記です。</p>
-<pre><code>前文 0 00000000 0 命令バイト 0 EEEEEEEE 1
-</code></pre><p>「ブロードキャストアドレス」<code>00000000</code> 向けの命令はすべての多機能デジタルデコーダーによって実行されなければいけません。単一の命令は「多機能デジタルデコーダーパケット」で定義されるものと同じ定義をもち、命令によって1から3バイトになります。デジタルデコーダーは自身が解釈できない命令は無視しなければいけません。製造者はデコーダーが解釈できるブロードキャストコマンドを記載しなければいけません。</p>
-<h2 id="c：多機能デジタルデコーダー用命令パケット">C：多機能デジタルデコーダー用命令パケット</h2>
-<p>このパケットの形式は下記です。</p>
+<h2 id="b-broadcast-command-for-multi-function-digital-decoders">B: Broadcast Command for Multi-Function Digital Decoders</h2>
+<p>The format for this packet is:</p>
+<pre><code>preamble 0 00000000 0 instruction-bytes 0 EEEEEEEE 1
+</code></pre><p>Instructions addressed to &quot;broadcast address&quot; <code>00000000</code> must be executed by all Multi Function Digital Decoders. The single instruction has the same definition as defined by the Multi Function Digital Decoder packet and can be one, two, or three bytes in length depending on the instruction. Digital Decoders should ignore any instruction they do not support. The manufacturer must document which broadcast commands a decoder supports.</p>
+<h2 id="c-instruction-packets-for-multi-function-digital-decoders">C: Instruction Packets for Multi Function Digital Decoders</h2>
+<p>The format for this packet is:</p>
 <pre><code>前文 0 [ AAAAAAAA ] 0 命令バイト 0 EEEEEEEE 1
-</code></pre><p>多機能デジタルデコーダーは1つ以上のモーターやアクセサリーを操作する目的で使用されます。これらの機器を操作するために使用されるパケット形式は3から6バイトで構成されます。最初のバイトはアドレスバイトで、それに続き1つか2つの命令バイトが、最後はエラー制御バイトで終わります。</p>
-<p>最初のアドレスバイトは、8ビットのアドレス情報をもちます。もしアドレスの最上位の2ビットが <code>11</code> で残りが <code>111111</code> でない場合、2番目のアドレスバイトがそのすぐ後に続かなければいけません。この2番目のアドレスバイトは8ビットの追加のアドレス情報をもちます。 アドレス情報が2バイトあるとき、それらは <code>0</code> ビットで分割されます。2バイトアドレスの最上位ビットは最初のアドレスバイトのビット5です（この場合ビット6とビット7は <code>1</code> の値をもちます）。</p>
-<p>命令バイトは多機能デジタルデコーダーにコマンドを送信するために使用されるデータバイトです。すべてのデジタルデコーダーがすべての命令を実装していませんが、もし1つ以上の命令を解釈できる場合、バイトが新規の命令なのか前の命令の2番目のバイトなのかを認識できるようにデジタルデコーダーがパケットを十分に解析できることは重要です</p>
-<p>それぞれの命令は下記のように定義されます。</p>
-<pre><code>命令バイト = CCCDDDDD または
-             CCCDDDDD 0 DDDDDDDD または
-             CCCDDDDD 0 DDDDDDDD 0 DDDDDDDD
+</code></pre><p>Multi Function Digital Decoders are used for the purpose of controlling one or more motors and/or accessories. The packet format used to control these devices consists of between 3 and 6 bytes where the first bytes are address bytes followed by one or two instruction bytes and ended by an error control byte.</p>
+<p>The first address byte contains 8 bits of address information. If the most significant bits of the address are <code>11</code> and the remaining bits are not <code>111111</code>, then a second address byte must immediately follow. This second address byte will then contain an additional 8 bits of address data. When 2 bytes of address information are present they are separated by a <code>0</code> bit. The most significant bit of two byte addresses is bit 5 of the first address byte. (bits #6 and #7 having the value of &quot;1&quot; in this case).</p>
+<p>Instruction-bytes are data bytes used to send commands to Multi Function Digital Decoders. Although it is unlikely that all Digital Decoders will implement all instructions, it is important that if they support packets with more than a single instruction, they can sufficiently parse the packet to be able to recognize if a byte is a new instruction or the second byte of a previous instruction.</p>
+<p>Each instruction (indicated by instruction-bytes) is defined to be:</p>
+<pre><code>instruction-bytes = CCCDDDDD,
+                    CCCDDDDD 0 DDDDDDDD, or
+                    CCCDDDDD 0 DDDDDDDD 0 DDDDDDDD
 </code></pre><p>Each instruction consists of a 3-bit instruction type field followed by a 5-bit data field. Some instructions have one or two or three additional bytes of data. The 3-bit instruction type field is defined as follows:</p>
 <table>
 <thead>
 <tr>
 <th style="text-align:center"><code>CCC</code></th>
-<th>説明</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center"><code>000</code></td>
-<td>デコーダー制御命令と編成制御命令</td>
+<td>Decoder and consist control instruction</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>001</code></td>
-<td>発展運転命令</td>
+<td>Advanced operation instructions</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>010</code></td>
-<td>後方運転の速度方向命令</td>
+<td>Speed and direction instruction for reverse operation</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>011</code></td>
-<td>前方運転の速度方向命令</td>
+<td>Speed and direction instruction for forward operation</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>100</code></td>
-<td>機能群1命令</td>
+<td>Function group one instruction</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>101</code></td>
-<td>機能群2命令</td>
+<td>Function group two instruction</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>110</code></td>
-<td>将来的拡張</td>
+<td>Future expansion</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>111</code></td>
-<td>CV 読み書き命令</td>
+<td>Configuration variable access instruction</td>
 </tr>
 </tbody>
 </table>
 <p>The last byte of the packet is the Error Detection Byte, which is calculated the same as is done in the baseline packet using all address, and all instruction bytes (see S-9.2).</p>
-<h3 id="デコーダー制御命令と編成制御命令（000）">デコーダー制御命令と編成制御命令（<code>000</code>）</h3>
-<p>With the exception of the decoder acknowledgment function (00001111), only a single decoder and consist control instruction may be contained in a packet.</p>
-<h4 id="デコーダー制御（0000）">デコーダー制御（<code>0000</code>）</h4>
+<h3 id="decoder-and-consist-control-instruction-000">Decoder and Consist Control Instruction (<code>000</code>)</h3>
+<p>With the exception of the decoder acknowledgment function (<code>00001111</code>), only a single decoder and consist control instruction may be contained in a packet.</p>
+<h4 id="decoder-control-0000">Decoder Control (<code>0000</code>)</h4>
 <p>The decoder control instructions are intended to set up or modify decoder configurations.</p>
-<p>このパケットの形式は下記です。</p>
-<pre><code>命令バイト = 0000CCCF または
-             0000CCCF DDDDDDDD
-</code></pre><p>This instruction (0000CCCF) allows specific decoder features to be set or cleared as defined by the value of D (&quot;1&quot; indicates set). When the decoder has decoder acknowledgment enabled, receipt of a decoder control instruction shall be acknowledged with an operations mode acknowledgment.</p>
+<p>The format for this packet is:</p>
+<pre><code>instruction-bytes = 0000CCCF or
+                    0000CCCF DDDDDDDD
+</code></pre><p>This instruction (<code>0000CCCF</code>) allows specific decoder features to be set or cleared as defined by the value of D (<code>1</code> indicates set). When the decoder has decoder acknowledgment enabled, receipt of a decoder control instruction shall be acknowledged with an operations mode acknowledgment.</p>
 <table>
 <thead>
 <tr>
 <th style="text-align:center"><code>CCCD</code></th>
-<th>説明</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center"><code>0000</code></td>
-<td>デジタルデコーダーリセット</td>
+<td>Digital decoder reset</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>0001</code></td>
-<td>強制リセット</td>
+<td>Hard reset</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>1111</code></td>
-<td>デコーダー応答要求</td>
+<td>Decoder acknowledgment request</td>
 </tr>
 </tbody>
 </table>
@@ -456,40 +459,41 @@
 <thead>
 <tr>
 <th style="text-align:center"><code>CCC</code></th>
-<th>説明</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center"><code>001</code></td>
-<td>工場試験命令</td>
+<td>Factory test instruction</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>010</code></td>
-<td>将来の使用のため予約</td>
+<td>Reserved for future use</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>011</code></td>
-<td>デコーダーフラグの設定</td>
+<td>Set decoder flags</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>100</code></td>
-<td>将来の使用のため予約</td>
+<td>Reserved for future use</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>101</code></td>
-<td>発展アドレスの設定（CV 29 のビット5）</td>
+<td>Set extended address (CV 29 bit 5)</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>110</code></td>
-<td>将来の使用のため予約</td>
+<td>Reserved for future use</td>
 </tr>
 </tbody>
 </table>
-<h5 id="強制リセット">強制リセット</h5>
-<p>CV 29・31・32 は工場出荷状態にリセットされ、CV 19 は <code>00000000</code> に設定され、上記命令の通りデジタルデコーダーリセットが実行されなければいけません。</p>
+<h5 id="hard-reset">Hard Reset</h5>
+<p>Configuration Variables 29, 31 and 32 are reset to its factory default conditions, CV#19 is set to &quot;00000000&quot; and a Digital Decoder reset (as in the above instruction) shall be performed.</p>
 <h5 id="デジタルデコーダーリセット">デジタルデコーダーリセット</h5>
-<p>デジタルデコーダーリセットは（速度と方向データを含め）すべての揮発性記憶を消去し、S-9.2.4 の A に定義された初期起動状態へ戻らなければいけません。コマンドステーションはアドレス112～127にデジタルデコーダーリセットの後10パケット期間はパケットを送信してはいけません。これは、デコーダーがサービスモード命令パケットを運転モードパケットとして実行しはじめないようにするためです（サービスモード命令パケットは10進数で112～127の短形式アドレスをもちます）。</p>
+<p>A Digital Decoder Reset shall erase all volatile memory (including and speed and direction data), and return to its initial power up state as defined in S-115 9.2.4 section A. Command Stations shall not send packets to addresses 112-127 for 10 packet times following a Digital Decoder Reset. This is to ensure that the decoder does not start executing service mode instruction packets as operations mode packets (Service Mode
+instruction packets have a short address in the range of 112 to 127 decimal.)</p>
 <h5 id="工場試験命令">工場試験命令</h5>
 <p>この命令は製造者が工場でデコーダーをテストするために使用されます。通常運用ではコマンドステーションはこの命令を送信してはいけません。この命令は多バイト命令である可能性があります。</p>
 <h5 id="デコーダーフラグの設定">デコーダーフラグの設定</h5>
@@ -497,7 +501,7 @@
 <p>この命令は NMRA DCC ワーキンググループで再評価中です。製造者はこの命令を実装する前に NMRA CDD 調整者に連絡をとるべきです。</p>
 </blockquote>
 <p>Set Decoder Flags is an expanded decoder control function that allows for the command station to turn on or off flags within a specific decoder or within a group of decoders.</p>
-<p>このパケットの形式は下記です。</p>
+<p>The format for this packet is:</p>
 <pre><code>命令バイト = 0000011D CCCC0SSS
 </code></pre><p>SSS is the decoder’s sub-address. This allows for up to 7 decoders to share the same decoder primary address, yet have certain functions (such as Configuration Variable Access Instructions) be performed on an individual basis. If SSS = 000 then the operation affects all decoders within the group. The decoder sub-address is defined in CV15.</p>
 <p><code>D</code> が <code>1</code> の場合、<code>CCCC</code> は下記の表によって定義されます。</p>
@@ -778,7 +782,7 @@
 <h3 id="基本アクセサリーデコーダーパケット形式">基本アクセサリーデコーダーパケット形式</h3>
 <p>The format for packets intended for Accessory Digital Decoders is:</p>
 <pre><code>前文 0 10AAAAAA 0 1AAACDDD 0 EEEEEEEE 1
-</code></pre><p>Accessory Digital Decoders can be designed to control momentary or constant-on devices, the duration of time each output is active being controlled by configuration variables CVs #515 through 518. Bit 3 of the second byte &quot;C&quot; is used to activate or deactivate the addressed device. (Note if the duration the device is intended to be on is less than or equal the set duration, no deactivation is necessary.) Since most devices are paired, the convention is that bit &quot;0&quot; of the second byte is used to distinguish between which of a pair of outputs the accessory decoder is activating or deactivating. Bits 1 and 2 of byte two are used to indicate which of 4 pairs of outputs the packet is controlling. The most significant bits of the 9-bit address are bits 4-6 of the second data byte. By convention these bits (bits 4-6 of the second data byte) are in ones complement.</p>
+</code></pre><p>Accessory Digital Decoders can be designed to control momentary or constant-on devices, the duration of time each output is active being controlled by configuration variables CVs #515 through 518. Bit 3 of the second byte &quot;C&quot; is used to activate or deactivate the addressed device. (Note if the duration the device is intended to be on is less than or equal the set duration, no deactivation is necessary.) Since most devices are paired, the convention is that bit &quot;0&quot; of the second byte is used to distinguish between which of a pair of outputs the accessory decoder is activating or deactivating. Bits 1 and 2 of byte two are used to indicate which of 4 pairs of outputs the packet is controlling. The most significant bits of the 9-bit address are bits 4-6 of the second data byte. By convention these bits (bits 4-6 of the second data byte) are in ones&apos; complement.</p>
 <p>運転モード応答が有効であるとき、基本アクセサリーデコーダーパケットは運転モード応答によって応答されなければいけません。</p>
 <h3 id="拡張アクセサリーデコーダー制御パケット形式">拡張アクセサリーデコーダー制御パケット形式</h3>
 <p>The Extended Accessory Decoder Control Packet is included for the purpose of transmitting aspect control to signal decoders or data bytes to more complex accessory decoders. Each signal head can display one aspect at a time.</p>
@@ -887,7 +891,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 Communication Standards","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css","head-append","katex2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"katex2":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA Standards and Recommended Practices","language":"en","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2022-06-20T16:07:05.969Z","type":"markdown"},"gitbook":{"version":"3.7.3","time":"2022-06-20T16:07:22.824Z"},"basePath":".","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 Communication Standards","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css","head-append","katex2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"katex2":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA Standards and Recommended Practices","language":"en","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2023-06-12T12:59:25.449Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-12T12:59:37.720Z"},"basePath":".","book":{"language":"en"}});
         });
     </script>
 </div>
