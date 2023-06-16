@@ -373,7 +373,7 @@
 </code></pre><p>Instructions addressed to &quot;broadcast address&quot; <code>00000000</code> must be executed by all Multi Function Digital Decoders. The single instruction has the same definition as defined by the Multi Function Digital Decoder packet and can be one, two, or three bytes in length depending on the instruction. Digital Decoders should ignore any instruction they do not support. The manufacturer must document which broadcast commands a decoder supports.</p>
 <h2 id="c-instruction-packets-for-multi-function-digital-decoders">C: Instruction Packets for Multi Function Digital Decoders</h2>
 <p>The format for this packet is:</p>
-<pre><code>前文 0 [ AAAAAAAA ] 0 命令バイト 0 EEEEEEEE 1
+<pre><code>preamble 0 [ AAAAAAAA ] 0 instruction-bytes 0 EEEEEEEE 1
 </code></pre><p>Multi Function Digital Decoders are used for the purpose of controlling one or more motors and/or accessories. The packet format used to control these devices consists of between 3 and 6 bytes where the first bytes are address bytes followed by one or two instruction bytes and ended by an error control byte.</p>
 <p>The first address byte contains 8 bits of address information. If the most significant bits of the address are <code>11</code> and the remaining bits are not <code>111111</code>, then a second address byte must immediately follow. This second address byte will then contain an additional 8 bits of address data. When 2 bytes of address information are present they are separated by a <code>0</code> bit. The most significant bit of two byte addresses is bit 5 of the first address byte. (bits #6 and #7 having the value of &quot;1&quot; in this case).</p>
 <p>Instruction-bytes are data bytes used to send commands to Multi Function Digital Decoders. Although it is unlikely that all Digital Decoders will implement all instructions, it is important that if they support packets with more than a single instruction, they can sufficiently parse the packet to be able to recognize if a byte is a new instruction or the second byte of a previous instruction.</p>
@@ -426,13 +426,13 @@
 </table>
 <p>The last byte of the packet is the Error Detection Byte, which is calculated the same as is done in the baseline packet using all address, and all instruction bytes (see S-9.2).</p>
 <h3 id="decoder-and-consist-control-instruction-000">Decoder and Consist Control Instruction (<code>000</code>)</h3>
-<p>With the exception of the decoder acknowledgment function (<code>00001111</code>), only a single decoder and consist control instruction may be contained in a packet.</p>
+<p>With the exception of the decoder acknowledgement function (<code>00001111</code>), only a single decoder and consist control instruction may be contained in a packet.</p>
 <h4 id="decoder-control-0000">Decoder Control (<code>0000</code>)</h4>
 <p>The decoder control instructions are intended to set up or modify decoder configurations.</p>
 <p>The format for this packet is:</p>
 <pre><code>instruction-bytes = 0000CCCF or
                     0000CCCF DDDDDDDD
-</code></pre><p>This instruction (<code>0000CCCF</code>) allows specific decoder features to be set or cleared as defined by the value of D (<code>1</code> indicates set). When the decoder has decoder acknowledgment enabled, receipt of a decoder control instruction shall be acknowledged with an operations mode acknowledgment.</p>
+</code></pre><p>This instruction (<code>0000CCCF</code>) allows specific decoder features to be set or cleared as defined by the value of D (<code>1</code> indicates set). When the decoder has decoder acknowledgement enabled, receipt of a decoder control instruction shall be acknowledged with an operations mode acknowledgement.</p>
 <table>
 <thead>
 <tr>
@@ -451,7 +451,7 @@
 </tr>
 <tr>
 <td style="text-align:center"><code>1111</code></td>
-<td>Decoder acknowledgment request</td>
+<td>Decoder acknowledgement request</td>
 </tr>
 </tbody>
 </table>
@@ -489,53 +489,53 @@
 </tr>
 </tbody>
 </table>
-<h5 id="hard-reset">Hard Reset</h5>
-<p>Configuration Variables 29, 31 and 32 are reset to its factory default conditions, CV#19 is set to &quot;00000000&quot; and a Digital Decoder reset (as in the above instruction) shall be performed.</p>
-<h5 id="デジタルデコーダーリセット">デジタルデコーダーリセット</h5>
+<h5 id="digital-decoder-reset">Digital Decoder Reset</h5>
 <p>A Digital Decoder Reset shall erase all volatile memory (including and speed and direction data), and return to its initial power up state as defined in S-115 9.2.4 section A. Command Stations shall not send packets to addresses 112-127 for 10 packet times following a Digital Decoder Reset. This is to ensure that the decoder does not start executing service mode instruction packets as operations mode packets (Service Mode
 instruction packets have a short address in the range of 112 to 127 decimal.)</p>
-<h5 id="工場試験命令">工場試験命令</h5>
-<p>この命令は製造者が工場でデコーダーをテストするために使用されます。通常運用ではコマンドステーションはこの命令を送信してはいけません。この命令は多バイト命令である可能性があります。</p>
-<h5 id="デコーダーフラグの設定">デコーダーフラグの設定</h5>
+<h5 id="hard-reset">Hard Reset</h5>
+<p>Configuration Variables 29, 31 and 32 are reset to its factory default conditions, CV#19 is set to &quot;00000000&quot; and a Digital Decoder reset (as in the above instruction) shall be performed.</p>
+<h5 id="factory-test-instruction">Factory Test Instruction</h5>
+<p>This instruction is used by manufacturers to test decoders at the factory. It must not be sent by any command station during normal operation. This instruction may be a multi-byte instruction.</p>
+<h5 id="set-decoder-flags">Set Decoder Flags</h5>
 <blockquote>
-<p>この命令は NMRA DCC ワーキンググループで再評価中です。製造者はこの命令を実装する前に NMRA CDD 調整者に連絡をとるべきです。</p>
+<p>This instruction is under re-evaluation by the NMRA DCC Working Group. Manufacturers should contact the NMRA DCC Coordinator before implementing this instruction.</p>
 </blockquote>
 <p>Set Decoder Flags is an expanded decoder control function that allows for the command station to turn on or off flags within a specific decoder or within a group of decoders.</p>
 <p>The format for this packet is:</p>
-<pre><code>命令バイト = 0000011D CCCC0SSS
-</code></pre><p>SSS is the decoder’s sub-address. This allows for up to 7 decoders to share the same decoder primary address, yet have certain functions (such as Configuration Variable Access Instructions) be performed on an individual basis. If SSS = 000 then the operation affects all decoders within the group. The decoder sub-address is defined in CV15.</p>
-<p><code>D</code> が <code>1</code> の場合、<code>CCCC</code> は下記の表によって定義されます。</p>
+<pre><code>instruction-bytes = 0000011D CCCC0SSS
+</code></pre><p>SSS is the decoder&apos;s sub-address. This allows for up to 7 decoders to share the same decoder primary address, yet have certain functions (such as Configuration Variable Access Instructions) be performed on an individual basis. If <code>SSS</code> = <code>000</code> then the operation affects all decoders within the group. The decoder sub-address is defined in CV15.</p>
+<p>If <code>D</code> = <code>1</code> then <code>CCCC</code> is defined in the following table:</p>
 <table>
 <thead>
 <tr>
 <th style="text-align:center"><code>CCCC</code></th>
-<th>意味</th>
-<th>動作</th>
-<th>期間</th>
+<th>Meaning</th>
+<th>Action</th>
+<th>Scope</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center"><code>0000</code></td>
-<td><code>111</code> 命令の無効化<sup><a href="#fn_1" id="reffn_1">1</a></sup></td>
-<td>すべての副アドレスに対して命令を無視する。</td>
-<td>次のデジタルデコーダーリセットパケットを受信するまで</td>
+<td>Disable <code>111</code> Instructions<sup><a href="#fn_1" id="reffn_1">1</a></sup></td>
+<td>Instruction is ignored for all sub addresses.</td>
+<td>Until next Digital Decoder Reset Packet is received.</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>0100</code></td>
-<td>デコーダー応答要求命令の無効化</td>
+<td>Disable Decoder Acknowledgement Request Instruction</td>
 <td>Acknowledgement and Address are not transmitted in response to a Decoder Acknowledgement Instruction for all sub addresses.</td>
 <td>Until power is removed long enough to power down the decoder.</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>0101</code></td>
-<td>双方向通信の有効化</td>
+<td>Activate Bi-Directional Communications</td>
 <td>B-Directional Communications are enabled per CVs (See note below).</td>
 <td>Permanent (sets CV 29 (or 541), bit 3) or internal Flag if sent to Consist Address.</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>1000</code></td>
-<td>双方向通信のセット</td>
+<td>Set Bi-Directional Communications</td>
 <td>Bi-Directional communications are enabled for specified sub address; all other sub addresses are disabled. (Not valid at Consist Address).</td>
 <td>Permanent (sets CV 16, bit 0)</td>
 </tr>
@@ -549,93 +549,96 @@ instruction packets have a short address in the range of 112 to 127 decimal.)</p
 <td style="text-align:center"><code>1111</code></td>
 <td>Accept 111 Instructions</td>
 <td>All multi-CV programming instructions are now valid.</td>
-<td>一度</td>
+<td>One-Time</td>
 </tr>
 </tbody>
 </table>
 <p>Note: This command is valid at both the decoder’s base address and (if active) the consist address. If sent to the base address, the command affects both the base address and the active consist address (if any). If sent to the consist address, and D=0 this command has no effect on the base address. If sent to the consist address, and D=1 this command has no effect.</p>
-<h4 id="編成制御（0001）">編成制御（<code>0001</code>）</h4>
-<p>この命令は編成のセットアップと有効化・無効化の制御をします。</p>
-<p>編成制御が有効なとき、デコーダーはその通常の機関車アドレスがその編成アドレスと一緒でない限り、その通常の機関車アドレスへの速度方向命令を無視します。速度方向命令は編成アドレスにのみ適用されます。</p>
-<p>命令 <code>100</code> と <code>101</code> によって制御される機能はデコーダー基準アドレスに返答しつづけます。命令 <code>100</code> と <code>101</code> によって制御される機能は、CV 21 と 22 の適切なビットが有効ならば編成アドレスにも応答します。</p>
-<p>デフォルトではデコーダー制御命令によって特に有効化されるまで編成アドレスへ送信されたコマンドに応答してすべての形式の双方向通信は有効にされません。運転モードの応答とデータ転送はそれぞれデコーダーアドレスの適切なコマンドに適用されます。</p>
-<p>この命令の形式は下記です。</p>
-<pre><code>命令バイト = 0001CCCC 0 0AAAAAAA
-</code></pre><p>2番目のバイトのビット7の値 <code>1</code> は将来の使用のため予約されています。この命令において <code>CCCC</code> は編成セットアップ命令を含み、2番目のバイトの <code>AAAAAAA</code> は7ビットの編成アドレスです。アドレスが <code>0000000</code> なら編成は無効化されます。アドレスが0でない場合は編成は有効化されます。</p>
-<p>（編成が <code>0000000</code> に設定されて）編成が無効化されている場合、双方向通信の設定は CV 26～28 で設定されます。</p>
-<p>運転モード応答が有効である場合、すべての編成コマンドは運転モード応答を通じて応答しなければいけません。</p>
-<p><code>CCCC</code> の形式は下記でないといけません。</p>
+<h4 id="consist-control-0001">Consist Control (<code>0001</code>)</h4>
+<p>This instruction controls consist setup and activation or deactivation.</p>
+<p>When Consist Control is in effect, the decoder will ignore any speed or direction instructions addressed to its normal locomotive address (unless this address is the same as its consist address). Speed and direction instructions now apply to the consist address only.</p>
+<p>Functions controlled by instruction <code>100</code> and <code>101</code> will continue to respond to the decoders baseline address. Functions controlled by instructions <code>100</code> and <code>101</code> also respond to the consist address if the appropriate bits in CVs #21, 22 have been activated.</p>
+<p>By default all forms of Bi-directional communication are not activated in response to commands sent to the consist address until specifically activated by a Decoder Control instruction. Operations mode acknowledgement and Data Transmission applies to the appropriate commands at the respective decoder addresses.</p>
+<p>The format of this instruction is:</p>
+<pre><code>instruction-bytes = 0001CCCC 0 0AAAAAAA
+</code></pre><p>A value of <code>1</code> in bit 7 of the second byte is reserved for future use. Within this instruction <code>CCCC</code> contains a consist setup instruction, and the <code>AAAAAAA</code> in the second byte is a seven bit consist address. If the address is <code>0000000</code> then the consist is deactivated. If the address is non-zero, then the consist is activated.</p>
+<p>If the consist is deactivated (by setting the consist to <code>0000000</code>), the Bi-Directional communications settings are set as specified in CVs 26-28.</p>
+<p>When operations-mode acknowledgement is enabled, all consist commands must be acknowledged via operations-mode acknowledgement.</p>
+<p>The format for <code>CCCC</code> shall be:</p>
 <table>
 <thead>
 <tr>
 <th style="text-align:center"><code>CCCC</code></th>
-<th>説明</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center"><code>0010</code></td>
-<td>2番目のバイトで指定された編成アドレスを設定し、編成を有効化します。編成アドレスは CV 19 のビット0～6に保存され、CV 19 のビット7は <code>0</code> の値に設定されます。編成内のこの車両の方向は通常の方向です。編成アドレスが <code>0000000</code> なら編成は無効化されます。</td>
+<td>Set the consist address as specified in the second byte, and activate the consist. The consist address is stored in bits 0-6 of CV #19 and bit 7 of CV #19 is set to a value of <code>0</code>. The direction of this unit in the consist is the normal direction. If the consist address is <code>0000000</code> the consist is deactivated.</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>0011</code></td>
-<td>2番目のバイトで指定された編成アドレスを設定し、編成を有効化します。編成アドレスは CV 19 のビット0～6に保存され、CV 19 のビット7は <code>1</code> の値に設定されます。編成のこの車両の方向は通常と逆の方向です。編成アドレスが <code>0000000</code> なら編成は無効化されます。</td>
+<td>Set the consist address as specified in the second byte and activate the consist. The consist address is stored in bits 0-6 of CV #19 and bit 7 of CV#19 is set to a value of <code>1</code>. The direction of this unit in the consist is opposite its normal direction. If the consist address is <code>0000000</code> the consist is deactivated.</td>
 </tr>
 <tr>
-<td style="text-align:center">その他</td>
-<td>将来の使用のために予約</td>
+<td style="text-align:center">Others</td>
+<td>Reserved for future use.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="発展的制御命令（001）">発展的制御命令（<code>001</code>）</h3>
-<p>これらの命令は発展的なデコーダー機能を制御します。パケットにただ1つの発展的制御命令が含まれえます。</p>
-<p>この命令の形式は下記です。</p>
+<h3 id="advanced-operations-instruction-001">Advanced Operations Instruction (<code>001</code>)</h3>
+<p>These instructions control advanced decoder functions. Only a single advanced operations instruction may be contained in a packet.</p>
+<p>The format of this instruction is:</p>
 <pre><code>001CCCCC 0 DDDDDDDD
 </code></pre><table>
 <thead>
 <tr>
 <th style="text-align:center"><code>CCCCC</code></th>
-<th>説明</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align:center"><code>11111</code></td>
-<td>128段階速度制御</td>
+<td>128 Speed Step Control</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>11110</code></td>
-<td>制限された速度制御命令</td>
+<td>Restricted Speed Step Instruction</td>
 </tr>
 <tr>
 <td style="text-align:center"><code>11101</code></td>
-<td>アナログ機能群</td>
+<td>Analog Function Group</td>
 </tr>
 </tbody>
 </table>
-<h4 id="128段階速度制御">128段階速度制御</h4>
-<p>命令 <code>11111</code> は126デジタルデコーダー速度段階のうちの1つを送信することに使用されます。続く単一のバイトは、ビット7が方向（<code>1</code> が前方で <code>0</code> が後方）、残りのビットが速度を示すのに使用されるように、速度と方向を定義しなければいけません。速度の最上位ビットはビット6です。<code>U0000000</code> のデータバイト値は停止に使用され、<code>U0000001</code> のデータバイト値は緊急停止に使用されます。これは最大126速度段階まで許容されます。運転モード応答が有効であるとき、128速度段階制御パケットの受信は運転モード応答によって応答されなければいけません。</p>
-<h4 id="制限された速度制御命令">制限された速度制御命令</h4>
-<p>命令 <code>11110</code> はデコーダーの最大速度を制限するために使用されます。データバイト（上記で <code>DDDDDDDD</code>）のビット7は制限された速度運転を有効化（<code>0</code>）・無効化（<code>1</code>）します。データバイトのビット0～5は S-9.2 に定義された速度段階です<sup><a href="#fn_2" id="reffn_2">2</a></sup>。運転モード応答が有効であるとき、制限された速度命令の受信は運転モード応答によって応答されなければいけません。</p>
-<h4 id="アナログ機能群">アナログ機能群</h4>
-<p>この命令の形式は下記です。</p>
+<h4 id="128-speed-step-control">128 Speed Step Control</h4>
+<p>Instruction <code>11111</code> is used to send one of 126 Digital Decoder speed steps. The subsequent single byte shall define speed and direction with bit 7 being direction (<code>1</code> is forward and <code>0</code> is reverse) and the remaining bits used to indicate speed. The most significant speed bit is bit 6. A data-byte value of <code>U0000000</code> is used for stop, and a data-byte value of <code>U0000001</code> is used for emergency stop. This allows up to 126 speed steps. When operations mode acknowledgement is enabled, receipt of a 128 Speed Step Control packet must be acknowledged with an operations mode acknowledgement.</p>
+<h4 id="restricted-speed-step-instruction">Restricted Speed Step Instruction</h4>
+<p>Instruction <code>11110</code> is used to restrict the maximum speed of a decoder. Bit 7 of the data byte (<code>DDDDDDDD</code> above) is used to enable (<code>0</code>) or disable (<code>1</code>) restricted speed operation. Bits 0-5 of the Data byte are the Speed Steps defined in S-9.2<sup><a href="#fn_2" id="reffn_2">2</a></sup>. When operations mode acknowledgement is enabled, receipt of a Restricted Speed Instruction must be acknowledged with an operations mode acknowledgement.</p>
+<h4 id="analog-function-group">Analog Function Group</h4>
+<p>The format of this instruction is:</p>
 <pre><code>001CCCCC 0 VVVVVVVV 0 DDDDDDDD
-</code></pre><p>ただし、<code>VVVVVVVV</code> はアナログ機能出力（0～255）、<code>DDDDDDDD</code> はアナログ機能データ（0～255）です。アナログ出力 <code>00000001</code> はボリューム制御です。</p>
-<p><code>VVVVVVVV</code> の他の値は予約されています。この機能は可搬デコーダーの速度の制御に使用してはいけません。</p>
-<p>運転モード応答が有効であるとき、アナログ機能群命令は運転モード応答によって応答されなければいけません。</p>
-<p>残りの29の命令は将来の使用のために予約されています。</p>
-<h3 id="速度命令と方向命令（010・011）">速度命令と方向命令（<code>010</code>・<code>011</code>）</h3>
-<p>これら2つの命令は下記の形式です。</p>
-<pre><code>010DDDDD 後方運転
-011DDDDD 前方運転
-</code></pre><p>速度方向命令は多機能デジタルデコーダーに接続されたモーターに情報を送信するために使用されます。命令 <code>010</code> は後方運転のための速度方向命令を示し、命令 <code>011</code> は前方運転のための速度方向命令を示します。これらの命令ではデータは S-9.2 の B に定義されるようにビット0～3が速度を制御するために使用されます。CV 29 のビット1が <code>1</code> の値をもつ場合、 S-9.2 の B に定義されるようにビット4は中間速度段階として使用されます。CV 29 のビット1が <code>0</code> の値をもつ場合、ビット4は FL を制御するために使用されなければいけません<sup><a href="#fn_3" id="reffn_3">3</a></sup>。このモードでは速度 <code>U0000</code> は停止、速度 <code>U0001</code> は緊急停止、速度 <code>U0010</code> は1段速度、速度 <code>U1111</code> は最高速です。それぞれの方向に14段の離散速度が提供されます。デコーダーが現在の速度段階の1段以内の新しい速度段階を受信した場合、デジタルデコーダーはこれら2つの速度段階の中間の段階を選択することがあります。This provides the potential to control 56 speed steps should the command station alternate speed packets.</p>
-<h3 id="機能群1命令（100）4">機能群1命令（<code>100</code>）<sup><a href="#fn_4" id="reffn_4">4</a></sup></h3>
-<p>この命令は下記の形式です。</p>
+</code></pre><p>where <code>VVVVVVVV</code> is Analog Function Output (0-255) and <code>DDDDDDDD</code> is Analog Function Data (0-255). Analog Output use <code>00000001</code> Volume Control.</p>
+<p>All other values of <code>VVVVVVVV</code> are reserved. This function must not be used to control the speed of a mobile decoder.</p>
+<p>When operations mode acknowledgement is enabled, receipt of a Analog Function Group Instruction must be acknowledged with an operations mode acknowledgement.</p>
+<p>The remaining 29 instructions are reserved for future use.</p>
+<h3 id="speed-and-direction-instructions-010-and-011">Speed and Direction Instructions (<code>010</code> and <code>011</code>)</h3>
+<p>These two instructions have these formats:</p>
+<pre><code>010DDDDD Reverse Operation
+011DDDDD Forward Operation
+</code></pre><p>A speed and direction instruction is used send information to motors connected to Multi Function Digital Decoders. Instruction <code>010</code> indicates a Speed and Direction Instruction for reverse operation and instruction <code>011</code> indicates a Speed and Direction Instruction for forward operation. In these instructions the data is used to control speed with bits 0-3 being defined exactly as in S-9.2 Section B. If Bit 1 of CV #29 has a value of one (<code>1</code>), then bit 4 is used as an intermediate speed step, as defined in S-9.2, Section B. If Bit 1 of CV#29 has a value of zero (<code>0</code>), then bit 4 shall be used to control FL<sup><a href="#fn_3" id="reffn_3">3</a></sup> . In this mode, Speed <code>U0000</code> is stop, speed <code>U0001</code> is emergency stop, speed <code>U0010</code> is the first speed step and speed <code>U1111</code> is full speed. This provides 14 discrete speed steps in each direction.</p>
+<p>If a decoder receives a new speed step that is within one step of current speed step, the Digital Decoder may select a step half way between these two speed steps. This provides the potential to control 56 speed steps should the command station alternate speed packets.</p>
+<p>Decoders may ignore the direction information transmitted in a broadcast packet for Speed and Direction commands that do not contain stop or emergency stop information.</p>
+<p>When operations mode acknowledgement is enabled, receipt of any speed and direction packet must be acknowledged with an operations mode acknowledgement.</p>
+<h3 id="function-group-one-instruction-1004">Function Group One Instruction (<code>100</code>)<sup><a href="#fn_4" id="reffn_4">4</a></sup></h3>
+<p>The format of this instruction is:</p>
 <pre><code>100DDDDD
-</code></pre><p>5つまでの補助機能（FL と F1～F4）が機能群1命令で制御できます。ビット0～3は機能 F1～F4 の値として定義されなければいけず、F1 はビット0で、F4 はビット3で制御されます。<code>1</code> の値は機能がオンであること、<code>0</code> の値は機能がオフであることを示さなければいけません。CV 29 のビット1が <code>1</code> の値をもつならばビット4は機能 FL を制御し、そうでないならばビット4は意味をもちません。</p>
-<p>運転モード応答が有効であるとき、機能群1命令は運転モード応答によって応答されなければいけません。</p>
+</code></pre><p>Up to 5 auxiliary functions (functions FL and F1-F4) can be controlled by the Function Group One instruction. Bits 0-3 shall define the value of functions F1-F4 with function F1 being controlled by bit 0 and function F4 being controlled by bit 3. A value of <code>1</code> shall indicate that the function is “on” while a value of <code>0</code> shall indicate that the function is “off”. If Bit 1 of CV #29 has a value of one (<code>1</code>), then bit 4 controls function FL, otherwise bit 4 has no meaning.</p>
+<p>When operations mode acknowledgment is enabled, receipt of a function group 1 packet must be acknowledged according with an operations mode acknowledgement.</p>
 <h3 id="機能群2命令（101）5">機能群2命令（<code>101</code>）<sup><a href="#fn_5" id="reffn_5">5</a></sup></h3>
-<p>この命令は下記の形式です。</p>
+<p>The format of this instruction is:</p>
 <pre><code>101SDDDD
 </code></pre><p>8つまでの補助機能（F5～F12）が機能群2命令で制御できます。ビット4がビット0～3の使われ方を定義します。ビット4が <code>1</code> のとき、ビット0～3（<code>DDDD</code>）は機能 F5～F8 の値として定義されなければいけず、F5 はビット0で、F8 はビット3で制御されます。ビット4が <code>0</code> のとき、ビット0～3（<code>DDDD</code>）は機能 F9～F12 の値として定義されなければいけず、F9 はビット0で、F12 はビット3で制御されます。<code>1</code> の値は機能がオンであること、<code>0</code> の値は機能がオフであることを示さなければいけません。</p>
 <p>運転モード応答が有効であるとき、機能群2命令は運転モード応答によって応答されなければいけません。</p>
@@ -688,7 +691,7 @@ instruction packets have a short address in the range of 112 to 127 decimal.)</p
 <h4 id="cv-読み書き応答">CV 読み書き応答</h4>
 <p>CV 読み書き応答が要求され、運転モード応答が有効であるとき、デコーダーは運転モード応答によって応答しなければいけません。</p>
 <h4 id="cv-読み書き手順（短式）">CV 読み書き手順（短式）</h4>
-<p>この命令は下記の形式です。</p>
+<p>The format of this instruction is:</p>
 <pre><code>1111CCCC 0 DDDDDDDD
 </code></pre><p>8ビットデータ <code>DDDDDDDD</code> は下記の表にしたがって <code>CCCCC</code> で識別される CV に配置されます。</p>
 <table>
@@ -811,7 +814,7 @@ instruction packets have a short address in the range of 112 to 127 decimal.)</p
 <pre><code>前文 10AAAAAA 0 0AAA0AA1 0 (1110CCVV 0 VVVVVVVV 0 DDDDDDDD) 0 EEEEEEEE 1
      信号デコーダーアドレス（CV 読み書き命令）                エラーバイト
 </code></pre><h2 id="e：運転モード応答">E：運転モード応答</h2>
-<p>The operations-mode acknowledgment mechanism as defined in S-9.3.1 and S-9.3.2 are the only valid acknowledgement in operations mode. Whenever an acknowledgment is requested, the decoder shall respond using this mechanism described in S-9.3.1 and S-9.3.2.</p>
+<p>The operations-mode acknowledgement mechanism as defined in S-9.3.1 and S-9.3.2 are the only valid acknowledgement in operations mode. Whenever an acknowledgement is requested, the decoder shall respond using this mechanism described in S-9.3.1 and S-9.3.2.</p>
 <h2 id="付録-a">付録 A</h2>
 <p>This Appendix contains additional useful information and/or legacy instructions. A DCC product need not implement any items described in this appendix.</p>
 <h2 id="アクセサリーデコーダー-cv-読み書き手順9">アクセサリーデコーダー CV 読み書き手順<sup><a href="#fn_9" id="reffn_9">9</a></sup></h2>
@@ -891,7 +894,7 @@ instruction packets have a short address in the range of 112 to 127 decimal.)</p
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 Communication Standards","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css","head-append","katex2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"katex2":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA Standards and Recommended Practices","language":"en","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2023-06-12T12:59:25.449Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-12T12:59:37.720Z"},"basePath":".","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"next":{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]},"previous":{"title":"S-9.2 Communication Standards","level":"2.2","depth":1,"path":"S-9.2-dcc-communications-standard.md","ref":"S-9.2-dcc-communications-standard.md","articles":[{"title":"S-9.2.1 Extended Packet Formats","level":"2.2.1","depth":2,"path":"S-9.2.1-extended-packet-formats.md","ref":"S-9.2.1-extended-packet-formats.md","articles":[]},{"title":"S-9.2.2 Configuration Variables for DCC","level":"2.2.2","depth":2,"path":"S-9.2.2-configuration-variables-for-dcc.md","ref":"S-9.2.2-configuration-variables-for-dcc.md","articles":[]}]},"dir":"ltr"},"config":{"plugins":["add-js-css","head-append","katex2"],"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"add-js-css":{"css":["style.css"]},"head-append":{"code":["<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\">","<link href=\"https://fonts.googleapis.com/css2?family=Noto+Serif+JP&display=swap\" rel=\"stylesheet\">"]},"katex2":{},"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"variables":{},"title":"NMRA Standards and Recommended Practices","language":"en","gitbook":"*"},"file":{"path":"S-9.2.1-extended-packet-formats.md","mtime":"2023-06-16T19:45:52.500Z","type":"markdown"},"gitbook":{"version":"3.7.4","time":"2023-06-16T19:46:06.980Z"},"basePath":".","book":{"language":"en"}});
         });
     </script>
 </div>
